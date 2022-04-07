@@ -1,0 +1,93 @@
+{
+  "projectType": "application",
+  "root": "apps/cloudy",
+  "sourceRoot": "apps/cloudy/src",
+  "prefix": "cloudy",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/cloudy",
+        "index": "apps/cloudy/src/index.html",
+        "main": "apps/cloudy/src/main.ts",
+        "polyfills": "apps/cloudy/src/polyfills.ts",
+        "tsConfig": "apps/cloudy/tsconfig.app.json",
+        "assets": ["apps/cloudy/src/favicon.ico", "apps/cloudy/src/assets"],
+        "styles": ["apps/cloudy/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/cloudy/src/environments/environment.ts",
+              "with": "apps/cloudy/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "cloudy:build:production"
+        },
+        "development": {
+          "browserTarget": "cloudy:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/cloudy/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "cloudy:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/cloudy/src/**/*.ts",
+          "apps/cloudy/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/cloudy"],
+      "options": {
+        "jestConfig": "apps/cloudy/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
