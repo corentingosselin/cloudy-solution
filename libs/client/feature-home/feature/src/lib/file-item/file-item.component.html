@@ -1,0 +1,22 @@
+<div id="file-item" class="flex-row" (mouseleave)="close()">
+
+    <div id="dropdown-menu" #dropdownMenu (mouseleave)="close()">
+        <a href="#">Download</a>
+        <a href="#">Duplicate</a>
+        <a href="#">Delete</a>
+    </div>
+    <fa-icon id="more" [icon]="faEllipsisH" (click)="open()"></fa-icon>
+
+   
+
+    <div id="file">
+        <fa-icon [icon]="faFile"></fa-icon>
+        <div [style.background-color]="tagColor" id="format-tag">{{fileFormat}}</div>
+    </div>
+
+    <div class="flex-column" id="file-desc">
+        <div id="file-name">{{fileName}}</div>
+        <span id="file-size">{{fileSizeDisplay}}</span>
+    </div>
+    
+</div>

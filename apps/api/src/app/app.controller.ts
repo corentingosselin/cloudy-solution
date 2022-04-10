@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@cloudy/api-interfaces';
 
 import { AppService } from './app.service';
 
@@ -9,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('hello')
-  getData(): Message {
+  getData(): string {
     return this.appService.getData();
   }
 }

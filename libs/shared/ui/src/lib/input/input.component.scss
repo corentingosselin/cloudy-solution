@@ -1,0 +1,29 @@
+input {
+    width: 20rem;
+    height: 3.5rem;
+    background-color: #012D37;
+    color: white;
+    outline: none;
+    border: none;
+    margin: 1rem;
+    font-size: 1.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #BDBDBD;
+}
+
+.label-error {
+    
+    margin-left: 1rem;
+}
+
+.error-label {
+    color: #05b983;
+    padding-left: 0.2rem;
+    font-size: 1rem;
+}

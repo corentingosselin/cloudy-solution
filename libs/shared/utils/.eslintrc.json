@@ -14,7 +14,7 @@
           {
             "type": "attribute",
             "prefix": "cloudy",
-            "style": "camelCase"
+            "style": "kebab-case"
           }
         ],
         "@angular-eslint/component-selector": [
@@ -22,7 +22,7 @@
           {
             "type": "element",
             "prefix": "cloudy",
-            "style": "kebab-case"
+            "style": "camelCase"
           }
         ]
       }
@@ -32,5 +32,13 @@
       "extends": ["plugin:@nrwl/nx/angular-template"],
       "rules": {}
     }
-  ]
+  ],
+  "@typescript-eslint/no-empty-function":[
+    "error",
+    {
+       "allow":[
+          "constructors"
+       ]
+    }
+ ]
 }

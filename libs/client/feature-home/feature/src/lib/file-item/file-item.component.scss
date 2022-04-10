@@ -1,0 +1,94 @@
+#file-item:hover {
+    background-color: #014352;
+}
+
+#file-item {
+    width: 15rem;
+    height: 4.5rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    position: relative;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+a:hover {
+    color: white;
+}
+
+#dropdown-menu {
+    padding: 0.4rem;
+    padding-right: 0.8rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: rgb(14, 88, 110);
+    top: 7px;
+    right: -5px;
+    display: none;
+    transition: display 2s;
+
+}
+
+#format-tag {
+    font-size: 0.7rem;
+    font-weight: bold;
+    position: absolute;
+    left: -3px;
+    bottom: 10px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+#more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.8rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    display: none;
+}
+
+#more:hover  {
+    color: white;
+}
+
+#file-item:hover #more {
+    display: inline-block;
+
+}
+
+fa-icon {
+    color: gray;
+}
+
+
+
+#file-name {
+    color: white;
+}
+
+#file-size {
+    color: gray;
+}
+
+.flex-row {
+    align-items: flex-end;
+}
+
+#file {
+    margin: 1rem;
+    position: relative;
+}
+
+#file-desc {
+    padding-bottom: 1.4rem;
+}

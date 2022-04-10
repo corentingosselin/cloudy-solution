@@ -1,0 +1,26 @@
+.navbar {
+    width: 6rem;
+    height: 100vh;
+    position: fixed;
+    background-color: #012D37;
+    transition: width 600ms ease;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+#separator {
+    margin: 2rem;
+    background-color: gray;
+    height: 1px;
+    width: 70%;
+}
+
+#home {
+    font-size: 2.5em;
+}
