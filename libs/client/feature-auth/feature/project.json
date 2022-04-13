@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/client/feature-auth/feature",
+  "sourceRoot": "libs/client/feature-auth/feature/src",
+  "prefix": "cloudy",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/feature-auth/feature"],
+      "options": {
+        "jestConfig": "libs/client/feature-auth/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/feature-auth/feature/src/**/*.ts",
+          "libs/client/feature-auth/feature/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

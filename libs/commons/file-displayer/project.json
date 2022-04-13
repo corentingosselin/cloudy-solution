@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/commons/file-displayer",
+  "sourceRoot": "libs/commons/file-displayer/src",
+  "prefix": "cloudy",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/commons/file-displayer"],
+      "options": {
+        "jestConfig": "libs/commons/file-displayer/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/commons/file-displayer/src/**/*.ts",
+          "libs/commons/file-displayer/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

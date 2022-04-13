@@ -1,0 +1,30 @@
+{
+    "commons": {
+        "email": "Email",
+        "password": "Password",
+        "name": "Name",
+        "firstname": "Firstname",
+        "confirm-password": "Confirm Password"
+    },
+    "auth": {
+        "not-registered-yet": "Not registered yet ? Register now here",
+        "already-registered": "Already registered ? Sign in here",
+        "login": "Login",
+        "register": "Register"
+    },
+    "error": {
+        "incorrect-password": "Incorrect password",
+        "invalid-email": "Invalid email",
+        "mandatory-email": "Email is mandatory",
+        "mandatory-password": "Password is mandatory",
+        "invalid-form": "Please verify informations provided",
+        "required-field":"This field is required",
+        "user-not-found": "User not found",
+        "user-already-exists": "User already exists",
+        "password-must-be-6-characters": "Password must be 6 characters",
+        "password-not-match": "Password does not match",
+        "invalid-name": "Invalid lastname",
+        "invalid-firstname": "Invalid firstname"
+
+    }
+}

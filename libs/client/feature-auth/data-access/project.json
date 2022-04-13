@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/client/feature-auth/data-access",
+  "sourceRoot": "libs/client/feature-auth/data-access/src",
+  "prefix": "cloudy",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/feature-auth/data-access"],
+      "options": {
+        "jestConfig": "libs/client/feature-auth/data-access/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/feature-auth/data-access/src/**/*.ts",
+          "libs/client/feature-auth/data-access/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

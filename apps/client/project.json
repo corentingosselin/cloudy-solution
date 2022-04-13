@@ -20,6 +20,11 @@
             "input": "libs/shared/ui/src/assets",
             "glob": "**/*",
             "output": "assets"
+          },
+          {
+            "input": "libs/shared/i18n/src",
+            "glob": "**/*",
+            "output": "lang"
           }
         ],
         "styles": ["apps/client/src/styles.css"],

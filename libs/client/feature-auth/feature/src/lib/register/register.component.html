@@ -1,0 +1,36 @@
+<div class="container">
+
+
+    <cloudy-logo></cloudy-logo>
+    <cloudy-error-box error="{{ errorResult.errorTitle }}"></cloudy-error-box>
+
+    <div class="container register-fields">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+            <div class="flex-row">
+                <div class="flex-column fields">
+                    <cloudy-input labelName="commons.name" controlName="lastname" error="{{ errorResult.error.lastname }}">
+                    </cloudy-input>
+                    <cloudy-input labelName="commons.firstname" controlName="firstname"
+                        error="{{ errorResult.error.firstname }}"></cloudy-input>
+                    <cloudy-input labelName="commons.email" controlName="email" error="{{ errorResult.error.email }}">
+                    </cloudy-input>
+                </div>
+
+                <div class="flex-column fields">
+                    <cloudy-input type="password" labelName="commons.password" controlName="password"
+                        error="{{ errorResult.error.password }}"></cloudy-input>
+                    <cloudy-input type="password" labelName="commons.confirm-password" controlName="confirmPassword"
+                        error="{{ errorResult.error.confirmPassword }}"></cloudy-input>
+                </div>
+            </div>
+
+            <a href="#" id="login" translate>auth.already-registered</a>
+            <cloudy-button labelName="auth.register"></cloudy-button>
+
+
+        </form>
+
+    </div>
+</div>

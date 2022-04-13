@@ -1,0 +1,7 @@
+{
+  "root": "libs/shared/i18n",
+  "sourceRoot": "libs/shared/i18n/src",
+  "projectType": "library",
+  "targets": {},
+  "tags": ["type:i18n", "scope:shared"]
+}
