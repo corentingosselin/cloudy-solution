@@ -1,8 +1,10 @@
-export interface LoginDto {
-    id: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-    access_token: string;
+
+import { IsEmail, IsNotEmpty } from 'class-validator';
+
+export class LoginDto {
+  @IsEmail()
+  email!: string;
+
+  @IsNotEmpty()
+  password!: string;
 }
-        

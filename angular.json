@@ -6,6 +6,7 @@
     "api-feature-auth-data-access": "libs/api/feature-auth/data-access",
     "api-feature-auth-feature": "libs/api/feature-auth/feature",
     "api-feature-auth-utils": "libs/api/feature-auth/utils",
+    "api-feature-user": "libs/api/feature-user",
     "client": "apps/client",
     "client-core-feature": "libs/client/core/feature",
     "client-e2e": "apps/client-e2e",

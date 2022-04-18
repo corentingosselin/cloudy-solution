@@ -6,6 +6,6 @@ import { GenericValidator } from './generic.validator';
 @NgModule({
   imports: [CommonModule],
   declarations: [DropperDirective],
-  exports: [GenericValidator],
+  exports: [],
 })
 export class SharedUtilsModule {}

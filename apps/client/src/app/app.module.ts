@@ -20,7 +20,12 @@ const routes: Routes = [
         (m) => m.ClientFeatureHomeModule
       ),
   },
-  // {path: 'login', component: LoginComponent},
+  {path: '',
+  loadChildren: () =>
+      import('@cloudy/client/feature-auth/feature').then(
+        (m) => m.ClientFeatureAuthFeatureModule
+      ),
+    },
   //{path: 'register', component: RegisterComponent}
 ];
 @NgModule({

@@ -25,6 +25,7 @@
       "@cloudy/api/feature-auth/utils": [
         "libs/api/feature-auth/utils/src/index.ts"
       ],
+      "@cloudy/api/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@cloudy/client-core-feature": ["libs/client/core/feature/src/index.ts"],
       "@cloudy/client-feature-home-data-access": [
         "libs/client/feature-home/data-access/src/index.ts"

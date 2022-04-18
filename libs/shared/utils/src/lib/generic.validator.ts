@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, of, Subject, takeUntil } from "rxjs";
-import { ErrorDto } from "./dto/error.dto";
+
 
 const VALIDATION_MESSAGES = {
   email: {
@@ -43,7 +43,6 @@ export class GenericValidator {
     if (form.valid) return of({});
     return form.valueChanges
       .pipe(
-
         map((value: string) => {
           const error: any = {};
           Object.keys(form.controls).forEach(controlName => {

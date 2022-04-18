@@ -1,5 +1,4 @@
-export interface ErrorDto {
+export interface ErrorResponse {
     field: string;
     message: string;
 }
-        
