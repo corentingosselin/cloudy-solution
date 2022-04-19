@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  cloudy-database:
+    image: mysql:latest
+    volumes:
+      - "./cloudy-database/db:/var/lib/mysql"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cloudy
+      MYSQL_ROOT_USER: root
+    networks:
+      - shared-network
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: always
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    networks:
+      - shared-network
+    volumes:
+      - ./minio:/data
+    command: server /data
+networks: 
+  shared-network:

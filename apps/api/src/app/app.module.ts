@@ -1,12 +1,15 @@
-import { SharedUtilsModule } from '@cloudy/shared/utils';
+import { ApiFeatureAuthFeatureModule } from '@cloudy/api/feature-auth/feature';
+import { ApiFeatureUserModule } from '@cloudy/api/feature-user';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-
 @Module({
   imports: [
-    SharedUtilsModule
+    TypeOrmModule.forRoot(),
+    ApiFeatureUserModule,
+    ApiFeatureAuthFeatureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
