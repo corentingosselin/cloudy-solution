@@ -40,5 +40,5 @@ Thumbs.db
 
 .angular
 
-./minio
-./cloudy-database
+minio
+cloudy-database
