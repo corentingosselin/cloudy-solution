@@ -9,7 +9,7 @@ type NewType = User;
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<NewType>
+    private userRepository: Repository<User>
   ) {
   }
 

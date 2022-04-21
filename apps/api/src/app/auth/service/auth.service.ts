@@ -23,7 +23,7 @@ export class AuthService {
             }, HttpStatus.BAD_REQUEST);
         }
 
-        const existingUser = this.usersService.findUserByEmail(createUserDto.email);
+        const existingUser = await this.usersService.findUserByEmail(createUserDto.email);
         if(existingUser) throw new HttpException({
             field: "email",
             message: "error.user-already-exists"
