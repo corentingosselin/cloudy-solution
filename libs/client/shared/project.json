@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/client/shared",
+  "sourceRoot": "libs/client/shared/src",
+  "prefix": "cloudy",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/shared"],
+      "options": {
+        "jestConfig": "libs/client/shared/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/shared/src/**/*.ts",
+          "libs/client/shared/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

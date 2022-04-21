@@ -55,9 +55,11 @@
       "@cloudy/client/feature-home/shared/utils": [
         "libs/client/feature-home/shared/utils/src/index.ts"
       ],
+      "@cloudy/client/shared": ["libs/client/shared/src/index.ts"],
       "@cloudy/commons/file-displayer": [
         "libs/commons/file-displayer/src/index.ts"
       ],
+      "@cloudy/shared/api": ["libs/shared/api/src/index.ts"],
       "@cloudy/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@cloudy/shared/i18n": ["libs/shared/i18n/src/index.ts"],
       "@cloudy/shared/ui": ["libs/shared/ui/src/index.ts"],
