@@ -9,7 +9,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { ErrorInterceptor } from '@cloudy/client/feature-auth/data-access';
+import { errorInterceptorProvider, jwtInterceptorProvider } from '@cloudy/client/feature-auth/data-access';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { ErrorInterceptor } from '@cloudy/client/feature-auth/data-access';
       },
     }),
   ],
-  providers: [ErrorInterceptor],
+  providers: [errorInterceptorProvider, jwtInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

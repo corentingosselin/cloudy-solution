@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FILE_API, fileHeaderOptions } from '@cloudy/client/shared';
+import { FILE_API } from '@cloudy/client/shared';
+import { Observable } from 'rxjs';
+import { Blob } from 'buffer';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +11,9 @@ export class FileService {
   constructor(private http: HttpClient) {}
 
   //upload file
-  async upload(file: any): Promise<any> {
+  upload(file: File): Observable<Blob> {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post(FILE_API, formData, fileHeaderOptions);
+    return this.http.post<Blob>(FILE_API, formData);
   }
 }

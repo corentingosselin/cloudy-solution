@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
 
   filesDropped(files: FileHandle[]): void {
     this.files = files;
-    this.fileService.upload(files[0]);
+    this.fileService.upload(files[0].file).subscribe(() => {
+      console.log('uploaded');
+    });
   }
 
 }

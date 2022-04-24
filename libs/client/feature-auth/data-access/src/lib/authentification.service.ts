@@ -30,6 +30,16 @@ export class AuthentificationService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
+  //get user
+  getUser(): LoggedResponse | null {
+    if(localStorage.getItem('user') == null) return null;
+    const user : LoggedResponse = JSON.parse(localStorage.getItem('user')!);
+    if (!this.tokenExpired(user.access_token)) {
+      return user;
+    }
+    return null;
+  }
+
   //is user logged in
   isLoggedIn(): boolean {
     if (localStorage.getItem('user')) {
