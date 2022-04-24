@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../user/user.service';
-import { LoginDto, RegisterDto, User } from '@cloudy/shared/api';
+import { LoggedResponse, LoginDto, RegisterDto, User } from '@cloudy/shared/api';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,7 @@ export class AuthService {
     ) { }
 
     // register user
-    async register(createUserDto: RegisterDto): Promise<User> {
+    async register(createUserDto: RegisterDto): Promise<LoggedResponse> {
 
         if(createUserDto.password !== createUserDto.confirmPassword){
             throw new HttpException({
@@ -30,11 +30,13 @@ export class AuthService {
         }, HttpStatus.BAD_REQUEST);
 
         const user = await this.usersService.createUser(createUserDto);
-        return user;
+        const access_token = this.jwtService.sign({ username: user.email, userId: user.id });
+        const result = { ...user, access_token };
+        return result;
     }
 
     //login user
-    async login(loginUserDto: LoginDto): Promise<any> {
+    async login(loginUserDto: LoginDto): Promise<LoggedResponse> {
         const user = await this.usersService.findUserByEmail(loginUserDto.email);
         if (!user) {
             throw new HttpException({

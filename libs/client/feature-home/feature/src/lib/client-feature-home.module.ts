@@ -4,23 +4,23 @@ import { HomeComponent } from './client-feature-home.component';
 import { SharedUtilsModule } from '@cloudy/shared/utils';
 import { SharedUiModule } from '@cloudy/shared/ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterModule } from '@angular/router';
-import { CommonsFileDisplayerModule } from '@cloudy/commons/file-displayer';
+import { RouterModule, Routes } from '@angular/router';
+import { ClientSharedModule } from '@cloudy/client/shared';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+];
 
 @NgModule({
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     SharedUtilsModule,
     SharedUiModule,
     FontAwesomeModule,
-    CommonsFileDisplayerModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomeComponent,
-      },
-    ]),
+    ClientSharedModule
   ],
   declarations: [HomeComponent],
+  providers: []
 })
 export class ClientFeatureHomeModule {}

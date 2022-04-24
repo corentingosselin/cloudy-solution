@@ -21,13 +21,14 @@ services:
     restart: always
     ports:
       - 9000:9000
+      - 9001:9001
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
     networks:
       - shared-network
     volumes:
       - ./minio:/data
-    command: server /data
+    command: server /data --console-address ":9001"
 networks: 
   shared-network:

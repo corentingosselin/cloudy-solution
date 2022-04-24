@@ -13,7 +13,7 @@ export interface FileHandle {
 }
 
 @Directive({
-  selector: "[cloudy-dropper]"
+  selector: "[cloudyDropper]"
 })
 export class DropperDirective {
   @Output() files: EventEmitter<FileHandle[]> = new EventEmitter();

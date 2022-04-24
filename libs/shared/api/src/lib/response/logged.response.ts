@@ -1,5 +1,5 @@
-export interface LoginResponse {
-    id: string;
+export interface LoggedResponse {
+    id: number;
     email: string;
     firstname: string;
     lastname: string;

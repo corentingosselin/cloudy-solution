@@ -1,6 +1,6 @@
 <cloudy-logo width='7'></cloudy-logo>
 
-<div id="dropper" appDropper (files)="filesDropped(files)">
+<div id="dropper" cloudyDropper (files)="filesDropped($event)">
     <!-- <input type="file" #FileDropRef multiple> !-->
     <div id="dropper-desc">
         <fa-icon id="upload-icon" [icon]="faUpload"></fa-icon>
@@ -16,7 +16,7 @@
 <div id="files-container">
 
     <div id="file-items">
-
+        
         <cloudy-files-area></cloudy-files-area>
 
 </div>

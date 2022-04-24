@@ -15,7 +15,6 @@
     "client-feature-home-shared-utils": "libs/client/feature-home/shared/utils",
     "client-feature-home-utils": "libs/client/feature-home/utils",
     "client-shared": "libs/client/shared",
-    "commons-file-displayer": "libs/commons/file-displayer",
     "shared-api": "libs/shared/api",
     "shared-i18n": "libs/shared/i18n",
     "shared-ui": "libs/shared/ui",

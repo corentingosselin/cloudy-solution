@@ -1,14 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '@cloudy/client/feature-auth/data-access';
+import { LoggedResponse } from '@cloudy/shared/api';
 import { GenericValidator } from '@cloudy/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -29,22 +27,25 @@ export class RegisterComponent implements OnInit {
     private authService: AuthentificationService,
     private translateService: TranslateService
   ) {
-    this.form = this.formBuilder.group({
-      email: [
-        null,
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    this.form = this.formBuilder.group(
+      {
+        email: [
+          null,
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          ],
         ],
-      ],
-      password: [null, Validators.required],
-      confirmPassword: [null, Validators.required],
-      firstname: [null, Validators.required],
-      lastname: [null, Validators.required],
-    }, {
-      validator: mustMatch('password', 'confirmPassword')
-  });
+        password: [null, Validators.required],
+        confirmPassword: [null, Validators.required],
+        firstname: [null, Validators.required],
+        lastname: [null, Validators.required],
+      },
+      {
+        validator: mustMatch('password', 'confirmPassword'),
+      }
+    );
 
     this.genericValidator = new GenericValidator(translateService);
     this.errorResult = {
@@ -72,19 +73,15 @@ export class RegisterComponent implements OnInit {
         password: val.password,
         confirmPassword: val.confirmPassword,
         firstname: val.firstname,
-        lastname: val.lastname
+        lastname: val.lastname,
       })
       .subscribe({
-        next: () => {
+        next: (loggedResponse: LoggedResponse) => {
+          this.authService.save(loggedResponse);
           //navigate to home page
           this.router.navigate(['/']);
         },
         error: (err) => {
-          if(err.status === 0) {
-     
-          }
-          console.log(err);
-
           //reset invalid control
           this.form.controls[err.error.field].reset();
 

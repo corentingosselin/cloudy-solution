@@ -1,35 +1,50 @@
 <div class="container">
 
+  <cloudy-logo></cloudy-logo>
+  <h1 id="register-title">Create your cloudy account</h1>
+  <cloudy-error-box error="{{ errorResult.errorTitle }}"></cloudy-error-box>
 
-    <cloudy-logo></cloudy-logo>
-    <cloudy-error-box error="{{ errorResult.errorTitle }}"></cloudy-error-box>
+  <div class="container register-fields">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex-row">
+        <div class="flex-column fields">
+          <cloudy-input
+            labelName="commons.name"
+            controlName="lastname"
+            error="{{ errorResult.error.lastname }}"
+          >
+          </cloudy-input>
+          <cloudy-input
+            labelName="commons.firstname"
+            controlName="firstname"
+            error="{{ errorResult.error.firstname }}"
+          ></cloudy-input>
+          <cloudy-input
+            labelName="commons.email"
+            controlName="email"
+            error="{{ errorResult.error.email }}"
+          >
+          </cloudy-input>
+        </div>
 
-    <div class="container register-fields">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="flex-column fields">
+          <cloudy-input
+            type="password"
+            labelName="commons.password"
+            controlName="password"
+            error="{{ errorResult.error.password }}"
+          ></cloudy-input>
+          <cloudy-input
+            type="password"
+            labelName="commons.confirm-password"
+            controlName="confirmPassword"
+            error="{{ errorResult.error.confirmPassword }}"
+          ></cloudy-input>
+        </div>
+      </div>
 
-
-            <div class="flex-row">
-                <div class="flex-column fields">
-                    <cloudy-input labelName="commons.name" controlName="lastname" error="{{ errorResult.error.lastname }}">
-                    </cloudy-input>
-                    <cloudy-input labelName="commons.firstname" controlName="firstname"
-                        error="{{ errorResult.error.firstname }}"></cloudy-input>
-                    <cloudy-input labelName="commons.email" controlName="email" error="{{ errorResult.error.email }}">
-                    </cloudy-input>
-                </div>
-
-                <div class="flex-column fields">
-                    <cloudy-input type="password" labelName="commons.password" controlName="password"
-                        error="{{ errorResult.error.password }}"></cloudy-input>
-                    <cloudy-input type="password" labelName="commons.confirm-password" controlName="confirmPassword"
-                        error="{{ errorResult.error.confirmPassword }}"></cloudy-input>
-                </div>
-            </div>
-
-            <a routerLink="/login" id="login" translate>auth.already-registered</a>
-            <cloudy-button labelName="auth.register"></cloudy-button>
-            
-        </form>
-
-    </div>
+      <a routerLink="/login" id="login" translate>auth.already-registered</a>
+      <cloudy-button labelName="auth.register"></cloudy-button>
+    </form>
+  </div>
 </div>

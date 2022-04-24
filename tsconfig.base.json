@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@env/*": ["apps/client/src/environments/*"],
       "@cloudy/api/core/feature": ["libs/api/core/feature/src/index.ts"],
       "@cloudy/api/feature-auth/data-access": [
         "libs/api/feature-auth/data-access/src/index.ts"
@@ -59,6 +60,7 @@
       "@cloudy/commons/file-displayer": [
         "libs/commons/file-displayer/src/index.ts"
       ],
+      "@cloudy/environment": ["libs/environment/src/index.ts"],
       "@cloudy/shared/api": ["libs/shared/api/src/index.ts"],
       "@cloudy/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@cloudy/shared/i18n": ["libs/shared/i18n/src/index.ts"],
