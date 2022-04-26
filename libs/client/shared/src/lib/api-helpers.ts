@@ -10,11 +10,4 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-//file header option
-const fileHeaderOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'multipart/form-data',
-  })
-};
-
-export { URL_API, AUTH_API, FILE_API, httpOptions, fileHeaderOptions};
+export { URL_API, AUTH_API, FILE_API, httpOptions};

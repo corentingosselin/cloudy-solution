@@ -1,6 +1,7 @@
 import { UserToken, FileData } from '@cloudy/shared/api';
 import { Injectable } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
+import {Multer} from 'multer';
 
 @Injectable()
 export class FileService {
@@ -13,25 +14,12 @@ export class FileService {
   constructor(private readonly minio: MinioService) {}
 
   //upload file to minio server
-  async upload(user: UserToken, file: any) {
-    const fileName = file.originalname;
-    const fileType = file.mimetype;
-    const filePath = file.path;
-    const fileSize = file.size;
+  async upload(user: UserToken, file:  File) {
     const fileBucket = this.baseBucket;
-    const fileKey = fileName;
-    const fileMetadata = {
-      'Content-Type': fileType,
-      'Content-Length': fileSize,
-    };
-    await this.client.putObject(
-      fileBucket,
-      user.userId + '/' + fileKey,
-      file.buffer,
-      fileMetadata
-    );
-    return fileKey;
+    const fileKey = user.userId + '/' + file.name;
+    await this.client.putObject(fileBucket, fileKey, file.stream);
   }
+
 
   //get user files
   async list(user: UserToken) {

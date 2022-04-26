@@ -1,7 +1,6 @@
 import { UserToken } from "@cloudy/shared/api";
 import { Body, Controller, Get, Post, Req, UploadedFile, UseGuards, UseInterceptors,  } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { get } from "https";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { FileService } from "./file.service";
 
