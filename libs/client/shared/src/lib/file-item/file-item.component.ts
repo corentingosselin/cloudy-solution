@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FileItemResponse } from '@cloudy/shared/api';
 import { faFile, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,8 +11,12 @@ export class FileItemComponent implements OnInit {
   faFile = faFile;
   faEllipsisH = faEllipsisH;
 
+  @Input() fileItem?: FileItemResponse;
+
   @Input() fileName = "file.pdf";
   @Input() fileSizeInput = '';
+
+
   fileSizeDisplay = "0 KB";
   fileFormat = "pdf";
   tagColor = "#BD8800";
