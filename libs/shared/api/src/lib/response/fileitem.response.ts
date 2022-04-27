@@ -1,8 +1,7 @@
 export interface FileItemResponse {
-    filename: string;
+    name: string;
     preview_url?: string;
-    download_url: string;
     size: number;
-    mime_type: string;
-    created_at: string;
+    lastModified: Date;
+    etag: string;
 }

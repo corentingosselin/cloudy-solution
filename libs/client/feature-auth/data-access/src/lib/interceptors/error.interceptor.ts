@@ -24,15 +24,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401 && !window.location.href.includes('/login')) {
-          console.log('401 detected, logout');
-
           // auto logout if 401 response returned from api
           this.authenticationService.logout();
           location.reload();
-        }
 
-        const error = err.error.error || err.error.message || err.statusText;
-        return throwError(error);
+        }
+        return throwError(()=>err);
       })
     );
   }

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FileItemResponse } from '@cloudy/shared/api';
 import { faFile, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { FileService } from '../data-access/file.service';
 
 @Component({
   selector: 'cloudy-file-item',
@@ -8,17 +9,19 @@ import { faFile, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./file-item.component.scss']
 })
 export class FileItemComponent implements OnInit {
+
+
+  constructor(private fileService: FileService) { }
+
+
   faFile = faFile;
   faEllipsisH = faEllipsisH;
 
   @Input() fileItem?: FileItemResponse;
 
-  @Input() fileName = "file.pdf";
-  @Input() fileSizeInput = '';
-
-
-  fileSizeDisplay = "0 KB";
-  fileFormat = "pdf";
+  fileNameDisplay = "unknown";
+  fileSizeDisplay = "? KB";
+  fileFormat = "";
   tagColor = "#BD8800";
 
   @ViewChild('dropdownMenu') dropdownMenu! : ElementRef;
@@ -29,19 +32,38 @@ export class FileItemComponent implements OnInit {
 
   close() : void {
     this.dropdownMenu.nativeElement.style.display = "none";
+  }
 
+  download() : void {
+    console.log("download");
+
+  }
+
+  delete() : void {
+    console.log("delete");
+  }
+
+
+  preview() : void {
+    //open link in new tab
+    console.log(this.fileItem?.preview_url);
+    // window.open(this.fileItem?.preview_url);
   }
 
   ngOnInit(): void {
 
-    // get file format by name 
-    this.fileFormat = this.fileName.substring(this.fileName.lastIndexOf('.') + 1);
-  
-    if (this.fileName.length > 16) {
-      this.fileName = this.fileName.substring(0, 16) + "... ";
-    }
+    if (!this.fileItem) return;
 
-    let fileSize: number = +this.fileSizeInput;
+    let fileName = this.fileItem?.name;
+    let fileSize = this.fileItem?.size;
+
+    // get file format by name 
+    this.fileFormat = fileName.substring(fileName.lastIndexOf('.') + 1);
+  
+    if (fileName.length > 16) {
+      this.fileNameDisplay = fileName.substring(0, 16) + "... ";
+    } else this.fileNameDisplay = fileName;
+  
     //KB MB GB of file size
     if (fileSize > 1024) {
       fileSize = fileSize / 1024;
@@ -56,6 +78,8 @@ export class FileItemComponent implements OnInit {
       } else {
         this.fileSizeDisplay = fileSize.toFixed(2) + " KB";
       }
+    } else {
+      this.fileSizeDisplay = fileSize + " B";
     }
 
     //generator color by file file format

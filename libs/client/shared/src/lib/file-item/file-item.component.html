@@ -1,9 +1,10 @@
 <div id="file-item" class="flex-row" (mouseleave)="close()">
 
     <div id="dropdown-menu" #dropdownMenu (mouseleave)="close()">
+        <a (click)="preview()">Preview</a>
         <a href="#">Download</a>
         <a href="#">Duplicate</a>
-        <a href="#">Delete</a>
+        <a (click)="delete()">Delete</a>
     </div>
     <fa-icon id="more" [icon]="faEllipsisH" (click)="open()"></fa-icon>
 
@@ -15,7 +16,7 @@
     </div>
 
     <div class="flex-column" id="file-desc">
-        <div id="file-name">{{fileName}}</div>
+        <div id="file-name">{{fileNameDisplay}}</div>
         <span id="file-size">{{fileSizeDisplay}}</span>
     </div>
     

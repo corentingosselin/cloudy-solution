@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FileItemResponse } from '@cloudy/shared/api';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'cloudy-files-area',
@@ -9,8 +10,9 @@ import { FileItemResponse } from '@cloudy/shared/api';
 export class FilesAreaComponent implements OnInit {
 
 
-  @Input() files: FileItemResponse[];
+  @Input() files?: Subject<FileItemResponse[]>;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 }

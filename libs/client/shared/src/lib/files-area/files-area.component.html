@@ -1,77 +1,8 @@
 <div id="file-items">
     
-    <ng-container *ngFor="">
-        <cloudy-file-item></cloudy-file-item>
+    <ng-container *ngFor="let file of files | async">
+        <cloudy-file-item [fileItem]="file"></cloudy-file-item>
     </ng-container>
-
-
-    <cloudy-file-item fileName="huqzbdhzbdhjqzbdhqjzbd.jar" fileSizeInput='10000'></cloudy-file-item>
-    <cloudy-file-item fileSizeInput='120'></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
-    <cloudy-file-item></cloudy-file-item>
 
     <div [ngStyle]="{'width.rem': 15, 'margin.rem':1.5}"></div>
     

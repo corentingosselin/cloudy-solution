@@ -1,7 +1,6 @@
-import { UserToken, FileData } from '@cloudy/shared/api';
+import { UserToken, FileData, FileItemResponse } from '@cloudy/shared/api';
 import { Injectable } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
-import {Multer} from 'multer';
 
 @Injectable()
 export class FileService {
@@ -13,28 +12,40 @@ export class FileService {
 
   constructor(private readonly minio: MinioService) {}
 
-  //upload file to minio server
-  async upload(user: UserToken, file:  File) {
+  async upload(user: UserToken, file: any): Promise<FileItemResponse> {
     const fileBucket = this.baseBucket;
-    const fileKey = user.userId + '/' + file.name;
-    await this.client.putObject(fileBucket, fileKey, file.stream);
+    const fileKey = user.userId + '/' + file.originalname;
+    const result = await this.client.putObject(
+      fileBucket,
+      fileKey,
+      file.buffer
+    );
+    const item = {
+      name: file.originalname,
+      size: file.size,
+      lastModified: new Date(),
+      etag: result.etag,
+    };
+    return item;
   }
-
 
   //get user files
   async list(user: UserToken) {
     const fileBucket = this.baseBucket;
     const filePrefix = user.userId + '/';
 
-    const files: FileData[] = await new Promise((resolve, reject) => {
-      const tempFiles: FileData[] = [];
+    const files: FileItemResponse[] = await new Promise((resolve, reject) => {
+      const tempFiles: FileItemResponse[] = [];
       const stream = this.client.listObjectsV2(fileBucket, filePrefix);
-      stream.on('data', (obj) =>
-        tempFiles.push({
-          ...obj,
-          name: obj.name.split('/').pop(),
-        })
-      );
+      stream.on('data', (obj) => {
+        this.getUrlPreview(obj.name).then((url: string) => {
+          tempFiles.push({
+            ...obj,
+            name: obj.name.split('/').pop(),
+            preview_url: url,
+          });
+        });
+      });
       stream.on('error', reject);
       stream.on('end', () => resolve(tempFiles));
     });
@@ -57,15 +68,14 @@ export class FileService {
   }
 
   //get url image from minio server
-  async getUrlPreview(user: UserToken, file: string) {
+  async getUrlPreview(file: string): Promise<string> {
     const fileBucket = this.baseBucket;
-    const fileKey = user.userId + '/' + file;
-    const url = await new Promise((resolve, reject) => {
-      this.client.presignedGetObject(fileBucket, fileKey, 60, (err, url) => {
+    return new Promise((resolve, reject) => {
+      this.client.presignedGetObject(fileBucket, file, 60, (err, url) => {
         if (err) reject(err);
         resolve(url);
       });
     });
-    return url; 
   }
+
 }

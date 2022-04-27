@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { LoggedResponse, LoginDto, RegisterDto } from '@cloudy/shared/api';
 import { AUTH_API, httpOptions } from '@cloudy/client/shared';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthentificationService {
   constructor(private http: HttpClient) {}
 
-  login(login: LoginDto): Observable<LoggedResponse> {
-    return this.http.post<LoggedResponse>(
-      AUTH_API + 'login',
-      login,
-      httpOptions
-    );
+  login(login: LoginDto) : Observable<LoggedResponse>{
+    return this.http.post<LoggedResponse>(AUTH_API + 'login', login, httpOptions);
   }
+
   register(register: RegisterDto): Observable<LoggedResponse> {
     return this.http.post<LoggedResponse>(
       AUTH_API + 'register',
@@ -32,8 +29,8 @@ export class AuthentificationService {
 
   //get user
   getUser(): LoggedResponse | null {
-    if(localStorage.getItem('user') == null) return null;
-    const user : LoggedResponse = JSON.parse(localStorage.getItem('user')!);
+    if (localStorage.getItem('user') == null) return null;
+    const user: LoggedResponse = JSON.parse(localStorage.getItem('user')!);
     if (!this.tokenExpired(user.access_token)) {
       return user;
     }

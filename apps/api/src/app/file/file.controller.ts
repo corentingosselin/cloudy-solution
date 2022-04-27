@@ -30,7 +30,8 @@ export class FileController {
     @Get('preview')
     async preview(@Body('file') file: string, @Req() request) {
         const user : UserToken = request.user;
-        return this.fileService.getUrlPreview(user, file);
+
+        return this.fileService.getUrlPreview(user.userId + '/' + file);
     }
 
 
