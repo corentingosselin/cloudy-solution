@@ -20,6 +20,12 @@ export class FileService {
     });
   }
 
+
+  //get file preview url
+  getUrlPreview(file: string): Observable<{preview_url: string}> {
+    return this.http.get<{preview_url: string}>(FILE_API + 'preview/' + file);
+  }
+
   //get files
   getFiles(): Observable<FileItemResponse[]> {
     return this.http.get<FileItemResponse[]>(FILE_API + 'list');

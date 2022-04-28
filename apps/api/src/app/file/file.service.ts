@@ -38,13 +38,10 @@ export class FileService {
       const tempFiles: FileItemResponse[] = [];
       const stream = this.client.listObjectsV2(fileBucket, filePrefix);
       stream.on('data', (obj) => {
-        this.getUrlPreview(obj.name).then((url: string) => {
           tempFiles.push({
             ...obj,
             name: obj.name.split('/').pop(),
-            preview_url: url,
           });
-        });
       });
       stream.on('error', reject);
       stream.on('end', () => resolve(tempFiles));
@@ -72,7 +69,9 @@ export class FileService {
     const fileBucket = this.baseBucket;
     return new Promise((resolve, reject) => {
       this.client.presignedGetObject(fileBucket, file, 60, (err, url) => {
-        if (err) reject(err);
+        if (err) {
+          reject(err);
+        }
         resolve(url);
       });
     });
