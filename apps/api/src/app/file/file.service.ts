@@ -25,6 +25,7 @@ export class FileService {
       size: file.size,
       lastModified: new Date(),
       etag: result.etag,
+      mimetype: file.mimetype,
     };
     return item;
   }
@@ -36,11 +37,12 @@ export class FileService {
 
     const files: FileItemResponse[] = await new Promise((resolve, reject) => {
       const tempFiles: FileItemResponse[] = [];
-      const stream = this.client.listObjectsV2(fileBucket, filePrefix);
+      const stream = this.client.extensions.listObjectsV2WithMetadata(fileBucket, filePrefix);
       stream.on('data', (obj) => {
           tempFiles.push({
             ...obj,
             name: obj.name.split('/').pop(),
+            mimetype: obj.metadata.contentType
           });
       });
       stream.on('error', reject);

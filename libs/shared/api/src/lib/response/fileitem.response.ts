@@ -3,4 +3,5 @@ export interface FileItemResponse {
     size: number;
     lastModified: Date;
     etag: string;
+    mimetype: string;
 }

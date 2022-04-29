@@ -1,7 +1,7 @@
 <div id="file-item" class="flex-row" (mouseleave)="close()">
 
     <div id="dropdown-menu" #dropdownMenu (mouseleave)="close()">
-        <a (click)="preview()">Preview</a>
+        <a (click)="preview($event)">Preview</a>
         <a (click)="download()">Download</a>
         <a href="#">Duplicate</a>
         <a (click)="delete()">Delete</a>

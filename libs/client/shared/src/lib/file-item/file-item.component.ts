@@ -34,22 +34,41 @@ export class FileItemComponent implements OnInit {
   download(): void {
     if (!this.fileItem) return;
     this.fileService.getUrlPreview(this.fileItem?.name).subscribe((url) => {
-       fetch(url.preview_url).then((res) => {
-         res.blob().then((blob) => {
-            let url = window.URL.createObjectURL(blob);
-          });
+      fetch(url.preview_url).then((res) => {
+        res.blob().then((blob) => {
+          let url = window.URL.createObjectURL(blob);
+        });
       });
     });
   }
 
   delete(): void {}
 
-  preview(): void {
+  preview(event: any): void {
     //open link in new tab
     if (!this.fileItem) return;
+    console.log(this.fileItem);
+
     this.fileService.getUrlPreview(this.fileItem?.name).subscribe(
       (url) => {
-        window.open(url.preview_url, '_blank');
+        //window.open(url.preview_url + '/preview');
+        console.log(url.preview_url);
+        const winHtml = `<!DOCTYPE html>
+            <html>
+                <head>
+                  <title>Window with Blob</title>
+                </head>
+                <body>
+                  <video controls width="700">
+                    <source src=${url.preview_url} type="video/mp4">
+                  </video>
+                </body>
+          </html>`;
+        const winUrl = URL.createObjectURL(
+          new Blob([winHtml], { type: 'text/html' })
+        );
+
+        window.open(winUrl, 'win', ``);
       },
       (error) => {
         console.log(error);
