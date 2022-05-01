@@ -44,4 +44,20 @@ export class FileController {
     return { preview_url: url };
   }
 
+  //delete
+  @UseGuards(JwtAuthGuard)
+  @Get('delete/:file')
+  async delete(@Req() request) {
+    const user: UserToken = request.user;
+    const url = await this.fileService.delete(user, request.params.file);
+    return { deleted: true };
+  }
+
+  //duplicate
+  @UseGuards(JwtAuthGuard)
+  @Post('duplicate/:file')
+  async duplicate(@Req() request) {
+    const user: UserToken = request.user;
+    return this.fileService.duplicate(user, request.params.file);
+  }
 }

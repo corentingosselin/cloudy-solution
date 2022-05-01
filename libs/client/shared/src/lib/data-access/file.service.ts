@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { FILE_API } from '@cloudy/client/shared';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { FileItemResponse } from '@cloudy/shared/api';
 
 @Injectable({
@@ -9,6 +9,9 @@ import { FileItemResponse } from '@cloudy/shared/api';
 })
 export class FileService {
   constructor(private http: HttpClient) {}
+
+  fileItems$: BehaviorSubject<FileItemResponse[]> = new BehaviorSubject<FileItemResponse[]>([]);
+
 
   //upload file
   upload(file: File): Observable<HttpEvent<FileItemResponse>> {
@@ -18,6 +21,11 @@ export class FileService {
       reportProgress: true,
       observe: 'events'
     });
+  }
+
+  //duplicate file
+  duplicate(file: string): Observable<FileItemResponse> {
+    return this.http.post<FileItemResponse>(FILE_API + 'duplicate/' + file, {});
   }
 
 
@@ -30,4 +38,10 @@ export class FileService {
   getFiles(): Observable<FileItemResponse[]> {
     return this.http.get<FileItemResponse[]>(FILE_API + 'list');
   }
+
+  //delete file
+  delete(file: string): Observable<boolean> {
+    return this.http.get<{deleted: boolean}>(FILE_API + 'delete/' + file).pipe(map(res => res.deleted));
+  }
+
 }

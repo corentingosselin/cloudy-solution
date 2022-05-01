@@ -4,19 +4,19 @@
     <!-- <input type="file" #FileDropRef multiple> !-->
     <div id="dropper-desc">
         <fa-icon id="upload-icon" [icon]="faUpload"></fa-icon>
-        <span>Glissez/déposez vos fichiers ici</span>
+        <span translate>commons.dropfiles</span>
     </div>
 </div>
 
 <div id="my-files" class="flex-row">
     <fa-icon id="home-icon" [icon]="faHome"></fa-icon>
-    <h1 id="title">Mes fichiers</h1>
+    <h1 id="title" translate>commons.my-files</h1>
 </div>
 
 <div id="files-container">
 
     <div id="file-items">
         
-        <cloudy-files-area [files]="fileItems"></cloudy-files-area>
+        <cloudy-files-area [files]="fileService.fileItems$"></cloudy-files-area>
 
 </div>

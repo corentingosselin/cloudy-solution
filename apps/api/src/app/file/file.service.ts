@@ -1,6 +1,7 @@
 import { UserToken, FileData, FileItemResponse } from '@cloudy/shared/api';
 import { Injectable } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
+import internal = require('stream');
 
 @Injectable()
 export class FileService {
@@ -37,13 +38,16 @@ export class FileService {
 
     const files: FileItemResponse[] = await new Promise((resolve, reject) => {
       const tempFiles: FileItemResponse[] = [];
-      const stream = this.client.extensions.listObjectsV2WithMetadata(fileBucket, filePrefix);
+      const stream = this.client.extensions.listObjectsV2WithMetadata(
+        fileBucket,
+        filePrefix
+      );
       stream.on('data', (obj) => {
-          tempFiles.push({
-            ...obj,
-            name: obj.name.split('/').pop(),
-            mimetype: obj.metadata.contentType
-          });
+        tempFiles.push({
+          ...obj,
+          name: obj.name.split('/').pop(),
+          mimetype: obj.metadata['content-type'],
+        });
       });
       stream.on('error', reject);
       stream.on('end', () => resolve(tempFiles));
@@ -79,4 +83,48 @@ export class FileService {
     });
   }
 
+  //duplicate file
+  async duplicate(user: UserToken, fileTarget: string) {
+    const fileBucket = this.baseBucket;
+    const fileKey = user.userId + '/' + fileTarget;
+
+    const fileExtension = fileTarget.split('.').pop();
+    const FileTargetName = fileTarget.split('.').slice(0, -1).join('.');
+    const fileDisplayName = FileTargetName + '_copy.' + fileExtension;
+    const fileName = user.userId + '/' + fileDisplayName;
+    console.log(fileName);
+    let size = 0;
+
+    const streamResult = await new Promise<internal.Readable>(
+      (resolve, reject) => {
+        this.client.getObject(fileBucket, fileKey, (err, data) => {
+          data.on('data', function (chunk) {
+            size += chunk.length;
+          });
+
+          data.on('error', reject);
+
+          data.on('end', async function () {
+            resolve(data);
+          });
+        });
+      }
+    );
+
+    const result = await this.client.putObject(
+      fileBucket,
+      fileName,
+      streamResult
+    );
+
+    const item = {
+      name: fileDisplayName,
+      size: size,
+      lastModified: new Date(),
+      etag: result.etag,
+      mimetype: fileTarget.split('.').pop(),
+    };
+
+    return item;
+  }
 }

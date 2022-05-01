@@ -4,7 +4,9 @@
         "password": "Password",
         "name": "Name",
         "firstname": "Firstname",
-        "confirm-password": "Confirm Password"
+        "confirm-password": "Confirm Password",
+        "dropfiles": "Drop files here to upload",
+        "my-files": "My Files"
     },
     "auth": {
         "not-registered-yet": "Not registered yet ? Register now here",
@@ -25,6 +27,5 @@
         "password-not-match": "Password does not match",
         "invalid-name": "Invalid lastname",
         "invalid-firstname": "Invalid firstname"
-
     }
 }

@@ -6,6 +6,7 @@ import { SharedUiModule } from '@cloudy/shared/ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientSharedModule } from '@cloudy/client/shared';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     SharedUtilsModule,
+    TranslateModule,
     SharedUiModule,
     FontAwesomeModule,
     ClientSharedModule

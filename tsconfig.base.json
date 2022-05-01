@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@env/*": ["apps/client/src/environments/*"],
       "@cloudy/api/core/feature": ["libs/api/core/feature/src/index.ts"],
       "@cloudy/api/feature-auth/data-access": [
         "libs/api/feature-auth/data-access/src/index.ts"
@@ -33,6 +32,9 @@
       ],
       "@cloudy/client-feature-home-utils": [
         "libs/client/feature-home/utils/src/index.ts"
+      ],
+      "@cloudy/client/feature-account/feature": [
+        "libs/client/feature-account/feature/src/index.ts"
       ],
       "@cloudy/client/feature-auth": ["libs/client/feature-auth/src/index.ts"],
       "@cloudy/client/feature-auth/data-access": [
@@ -65,7 +67,8 @@
       "@cloudy/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@cloudy/shared/i18n": ["libs/shared/i18n/src/index.ts"],
       "@cloudy/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@cloudy/shared/utils": ["libs/shared/utils/src/index.ts"]
+      "@cloudy/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@env/*": ["apps/client/src/environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

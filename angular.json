@@ -5,6 +5,7 @@
     "client": "apps/client",
     "client-core-feature": "libs/client/core/feature",
     "client-e2e": "apps/client-e2e",
+    "client-feature-account-feature": "libs/client/feature-account/feature",
     "client-feature-auth-data-access": "libs/client/feature-auth/data-access",
     "client-feature-auth-feature": "libs/client/feature-auth/feature",
     "client-feature-auth-shared-utils": "libs/client/feature-auth/shared/utils",

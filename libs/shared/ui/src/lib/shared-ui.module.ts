@@ -8,6 +8,7 @@ import { InputComponent } from './input/input.component';
 import { ButtonComponent } from './button/button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     SlidebarComponent,
     ErrorBoxComponent,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
   ],
   exports: [
     LogoComponent,
@@ -25,6 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ButtonComponent
   ],
   imports: [
+    RouterModule,
     CommonModule,
     FontAwesomeModule,
     ReactiveFormsModule,

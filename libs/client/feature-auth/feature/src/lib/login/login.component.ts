@@ -4,7 +4,8 @@ import { AuthentificationService } from '@cloudy/client/feature-auth/data-access
 import { GenericValidator } from '@cloudy/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { catchError, map, of, throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'cloudy-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthentificationService,
     private translateService: TranslateService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.form = this.formBuilder.group({
       email: [
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit {
         next: (user) => {
           this.authService.save(user);
           this.router.navigate(['/']);
+          this.toastr.success('You are logged in');
         },
         error: (err) => {          
           const error = {

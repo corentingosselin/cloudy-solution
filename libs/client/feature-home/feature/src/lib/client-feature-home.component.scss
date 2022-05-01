@@ -1,7 +1,8 @@
 
 cloudy-logo {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left: 2rem;
 }
 
 .flex-row {
@@ -14,6 +15,7 @@ cloudy-logo {
 
 #home-icon {
     margin-right: 1rem;
+    font-size: 2em;
 }
 
 #files-container {

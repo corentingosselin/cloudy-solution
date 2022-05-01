@@ -12,17 +12,15 @@ import { HttpEventType } from '@angular/common/http';
   styleUrls: ['./client-feature-home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private fileService: FileService) {}
+  constructor(public fileService: FileService) {}
 
   files: FileHandle[] = [];
   faUpload = faUpload;
   faHome = faHome;
 
-  fileItems: BehaviorSubject<FileItemResponse[]> = new BehaviorSubject<FileItemResponse[]>([]);
-
   ngOnInit(): void {
     this.fileService.getFiles().subscribe((files) => {
-      this.fileItems.next(files);
+      this.fileService.fileItems$.next(files);
     });
   }
 
@@ -34,7 +32,7 @@ export class HomeComponent implements OnInit {
         if (event.type === HttpEventType.Response) {
           const item: FileItemResponse = event.body as FileItemResponse;
           if (event.body) {
-            this.fileItems.getValue().push(item);
+            this.fileService.fileItems$.getValue().push(item);
           }
         }
       },

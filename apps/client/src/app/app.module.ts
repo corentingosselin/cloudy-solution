@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedUiModule } from '@cloudy/shared/ui';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 
 // import ngx-translate and the http loader
@@ -14,6 +15,8 @@ import { errorInterceptorProvider, jwtInterceptorProvider } from '@cloudy/client
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
     BrowserModule,
     SharedUiModule,
     AppRoutingModule,
@@ -24,7 +27,7 @@ import { errorInterceptorProvider, jwtInterceptorProvider } from '@cloudy/client
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-    }),
+    })
   ],
   providers: [errorInterceptorProvider, jwtInterceptorProvider],
   bootstrap: [AppComponent],

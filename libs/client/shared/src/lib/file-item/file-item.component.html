@@ -1,14 +1,13 @@
 <div id="file-item" class="flex-row" (mouseleave)="close()">
 
     <div id="dropdown-menu" #dropdownMenu (mouseleave)="close()">
-        <a (click)="preview($event)">Preview</a>
+        <a (click)="preview()">Preview</a>
         <a (click)="download()">Download</a>
-        <a href="#">Duplicate</a>
+        <a (click)="duplicate()">Duplicate</a>
         <a (click)="delete()">Delete</a>
     </div>
     <fa-icon id="more" [icon]="faEllipsisH" (click)="open()"></fa-icon>
 
-   
 
     <div id="file">
         <fa-icon [icon]="faFile"></fa-icon>

@@ -33,47 +33,68 @@ export class FileItemComponent implements OnInit {
 
   download(): void {
     if (!this.fileItem) return;
-    this.fileService.getUrlPreview(this.fileItem?.name).subscribe((url) => {
-      fetch(url.preview_url).then((res) => {
-        res.blob().then((blob) => {
-          let url = window.URL.createObjectURL(blob);
-        });
+    this.fileService
+      .getUrlPreview(this.fileItem?.name)
+      .subscribe(async (url) => {
+        let link = url.preview_url;
+        if (!this.fileItem?.mimetype.includes('octet-stream')) {
+          const res = await fetch(link);
+          let blob = await res.blob();
+          blob = blob.slice(0, blob.size, 'application/octet-stream');
+          link = window.URL.createObjectURL(blob);
+        }
+        window.open(link, '_blank');
       });
-    });
   }
 
-  delete(): void {}
+  delete(): void {
+    if (!this.fileItem) return;
+    this.fileService.delete(this.fileItem?.name).subscribe(
+      (res) => {
+        this.fileService.fileItems$
+          .getValue()
+          .splice(
+            this.fileService.fileItems$.getValue().indexOf(this.fileItem!),
+            1
+          );
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-  preview(event: any): void {
+  preview() {
     //open link in new tab
     if (!this.fileItem) return;
-    console.log(this.fileItem);
 
     this.fileService.getUrlPreview(this.fileItem?.name).subscribe(
-      (url) => {
-        //window.open(url.preview_url + '/preview');
-        console.log(url.preview_url);
-        const winHtml = `<!DOCTYPE html>
-            <html>
-                <head>
-                  <title>Window with Blob</title>
-                </head>
-                <body>
-                  <video controls width="700">
-                    <source src=${url.preview_url} type="video/mp4">
-                  </video>
-                </body>
-          </html>`;
-        const winUrl = URL.createObjectURL(
-          new Blob([winHtml], { type: 'text/html' })
-        );
+      async (url) => {
+        let link = url.preview_url;
 
-        window.open(winUrl, 'win', ``);
+        const res = await fetch(link);
+        let blob = await res.blob();
+        blob = blob.slice(
+          0,
+          blob.size,
+          this.getMimeTypeFromExtension(this.fileFormat)
+        );
+        link = window.URL.createObjectURL(blob);
+
+        window.open(link, '_blank');
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  duplicate(): void {
+    if (!this.fileItem) return;
+    this.fileService.duplicate(this.fileItem?.name).subscribe((res) => {
+      console.log(res);
+      this.fileService.fileItems$.getValue().push(res);
+    });
   }
 
   ngOnInit(): void {
@@ -184,5 +205,99 @@ export class FileItemComponent implements OnInit {
         break;
     }
     this.tagColor = color;
+  }
+
+  getMimeTypeFromExtension(extension: string): string {
+    let mimeType = 'application/octet-stream';
+    switch (extension) {
+      case 'pdf':
+        mimeType = 'application/pdf';
+        break;
+      case 'doc':
+        mimeType = 'application/msword';
+        break;
+      case 'docx':
+        mimeType =
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        break;
+      case 'xls':
+        mimeType = 'application/vnd.ms-excel';
+        break;
+      case 'xlsx':
+        mimeType =
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        break;
+      case 'ppt':
+        mimeType = 'application/vnd.ms-powerpoint';
+        break;
+      case 'pptx':
+        mimeType =
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        break;
+      case 'txt':
+        mimeType = 'text/plain';
+        break;
+      case 'zip':
+        mimeType = 'application/zip';
+        break;
+      case 'rar':
+        mimeType = 'application/x-rar-compressed';
+        break;
+      case 'jpg':
+        mimeType = 'image/jpeg';
+        break;
+      case 'png':
+        mimeType = 'image/png';
+        break;
+      case 'gif':
+        mimeType = 'image/gif';
+        break;
+      case 'bmp':
+        mimeType = 'image/bmp';
+        break;
+      case 'mp3':
+        mimeType = 'audio/mpeg';
+        break;
+      case 'mp4':
+        mimeType = 'video/mp4';
+        break;
+      case 'avi':
+        mimeType = 'video/x-msvideo';
+        break;
+      case 'flv':
+        mimeType = 'video/x-flv';
+        break;
+      case 'mkv':
+        mimeType = 'video/x-matroska';
+        break;
+      case 'wmv':
+        mimeType = 'video/x-ms-wmv';
+        break;
+      case 'mov':
+        mimeType = 'video/quicktime';
+        break;
+      case 'mpg':
+        mimeType = 'video/mpeg';
+        break;
+      case 'mpeg':
+        mimeType = 'video/mpeg';
+        break;
+      case 'wav':
+        mimeType = 'audio/x-wav';
+        break;
+      case 'yml':
+        mimeType = 'text/yaml';
+        break;
+      case 'yaml':
+        mimeType = 'text/yaml';
+        break;
+      case 'json':
+        mimeType = 'application/json';
+        break;
+      case 'xml':
+        mimeType = 'text/xml';
+        break;
+    }
+    return mimeType;
   }
 }
