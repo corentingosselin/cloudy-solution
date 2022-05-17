@@ -9,6 +9,8 @@
     "client-feature-auth-data-access": "libs/client/feature-auth/data-access",
     "client-feature-auth-feature": "libs/client/feature-auth/feature",
     "client-feature-auth-shared-utils": "libs/client/feature-auth/shared/utils",
+    "client-feature-dashboard-data-access": "libs/client/feature-dashboard/data-access",
+    "client-feature-dashboard-feature": "libs/client/feature-dashboard/feature",
     "client-feature-home-data-access": "libs/client/feature-home/data-access",
     "client-feature-home-feature": "libs/client/feature-home/feature",
     "client-feature-home-shared-data-access": "libs/client/feature-home/shared/data-access",

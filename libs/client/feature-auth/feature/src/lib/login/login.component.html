@@ -1,8 +1,6 @@
 <div class="container">
 
-
     <cloudy-logo></cloudy-logo>
-
 
         <cloudy-error-box error="{{ errorResult.errorTitle }}"></cloudy-error-box>
         <div class="container login-fields">
@@ -12,7 +10,6 @@
                 </cloudy-input>
                 <cloudy-input labelName="commons.password" controlName="password" type="password"
                     error="{{ errorResult.error.password }}"></cloudy-input>
-
                 <a routerLink="/register" id="register" translate>auth.not-registered-yet</a>
                 <cloudy-button labelName="auth.login"></cloudy-button>
 

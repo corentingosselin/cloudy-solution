@@ -26,6 +26,10 @@ export class UserService {
     return this.userRepository.find();
   }
 
+  async countUsers() {
+    return this.userRepository.count();
+  }
+
   async createUser(createUserDto: RegisterDto) : Promise<User> {
     const user = User.create(createUserDto);
     await user.save();

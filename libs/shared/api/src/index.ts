@@ -6,4 +6,5 @@ export * from './lib/response/error.response';
 export * from './lib/response/logged.response';
 export * from './lib/object/usertoken';
 export * from './lib/object/filedata';
-export * from './lib/response/fileitem.response'
+export * from './lib/response/fileitem.response';
+export * from './lib/response/metrics.response';

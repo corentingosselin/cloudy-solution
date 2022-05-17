@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountFeatureModule } from '@cloudy/client/feature-account/feature';
 import { AuthGuard } from '@cloudy/client/feature-auth/data-access';
 import { ClientFeatureAuthModule } from '@cloudy/client/feature-auth/feature';
+import { DashboardFeatureModule } from '@cloudy/client/feature-dashboard/feature';
 
 const routes: Routes = [
   {
@@ -27,6 +28,13 @@ const routes: Routes = [
         (m) => m.AccountFeatureModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('@cloudy/client/feature-dashboard/feature').then(
+        (m) => m.DashboardFeatureModule
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];
 
@@ -34,6 +42,7 @@ const routes: Routes = [
   imports: [
     ClientFeatureAuthModule,
     AccountFeatureModule,
+    DashboardFeatureModule,
     RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],

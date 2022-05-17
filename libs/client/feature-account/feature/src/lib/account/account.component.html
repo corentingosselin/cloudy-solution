@@ -3,13 +3,16 @@
 <div id="account-container">
     <div id="info">
         <fa-icon [icon]="faInfoCircle"></fa-icon>
-        <h3>Informations</h3>
+        <h3 translate>commons.informations</h3>
     </div>
 
-    <div class="field"><span class="label">Nom</span><span class="label-value">Gosselin</span></div>
+    <div class="field"><span class="label" translate>commons.name</span><span class="label-value">{{name}}</span></div>
 
-    <div class="field"><span class="label">Prénom</span><span class="label-value">Corentin</span></div>
+    <div class="field"><span class="label" translate>commons.firstname</span><span class="label-value">{{firstname}}</span></div>
 
-    <cloudy-button color="#9D3900" labelName="Se déconnecter" onclick="logout()"></cloudy-button>
+    <div class="field"><span class="label" translate>commons.email</span><span class="label-value">{{email}}</span></div>
+
+
+    <cloudy-button color="#9D3900" labelName="auth.disconnect" (click)="logout()"></cloudy-button>
 
 </div>

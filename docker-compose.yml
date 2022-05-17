@@ -1,11 +1,29 @@
 version: '3.8'
 
 services:
+  prometheus:
+    image: prom/prometheus:v2.11.1
+    container_name: prometheus
+    deploy:
+      replicas: 1
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - shared-network
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - '3000:3000'
   cloudy-database:
     image: mysql:latest
     container_name: cloudy-database
     volumes:
-      - "./cloudy-database/db:/var/lib/mysql"
+      - './cloudy-database/db:/var/lib/mysql'
     restart: always
     ports:
       - 3306:3306
@@ -23,12 +41,16 @@ services:
       - 9000:9000
       - 9001:9001
     environment:
+      MINIO_PROMETHEUS_AUTH_TYPE: public
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
+      MINIO_PROMETHEUS_URL: http://prometheus:9090
     networks:
       - shared-network
     volumes:
       - ./minio:/data
     command: server /data --console-address ":9001"
-networks: 
+networks:
   shared-network:
+volumes:
+  prometheus-data:

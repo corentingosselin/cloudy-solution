@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccountComponent } from './account/account.component';
 import { AuthGuard } from '@cloudy/client/feature-auth/data-access';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedUiModule } from '@cloudy/shared/ui';
 import { TranslateModule } from '@ngx-translate/core';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'account',
-    component: AccountComponent,
+    path: 'dashboard',
+    component: DashboardComponent,
     canActivate: [AuthGuard],
   },
 ];
@@ -23,7 +23,7 @@ const routes: Routes = [
     SharedUiModule,
     TranslateModule
   ],
-  declarations: [AccountComponent],
-  exports: [AccountComponent],
+  declarations: [DashboardComponent],
+  exports: [DashboardComponent],
 })
-export class AccountFeatureModule {}
+export class DashboardFeatureModule {}

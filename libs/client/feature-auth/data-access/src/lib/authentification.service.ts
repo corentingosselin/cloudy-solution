@@ -3,12 +3,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LoggedResponse, LoginDto, RegisterDto } from '@cloudy/shared/api';
 import { AUTH_API, httpOptions } from '@cloudy/client/shared';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthentificationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(login: LoginDto) : Observable<LoggedResponse>{
     return this.http.post<LoggedResponse>(AUTH_API + 'login', login, httpOptions);
@@ -51,6 +52,7 @@ export class AuthentificationService {
   //logout
   logout() {
     localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
   private tokenExpired(token: string): boolean {

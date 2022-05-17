@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '@cloudy/client/feature-auth/data-access';
+import { LoggedResponse } from '@cloudy/shared/api';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,7 +11,19 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 export class AccountComponent implements OnInit {
   constructor(private authService: AuthentificationService) {}
   faInfoCircle = faInfoCircle;
-  ngOnInit(): void {}
+
+  name: string = 'unknown';
+  firstname: string = 'unknown';
+  email: string = 'unknown';
+
+  ngOnInit(): void {
+    const user = this.authService.getUser();
+    if (user) {
+      this.name = user.lastname;
+      this.firstname = user.firstname;
+      this.email = user.email;
+    }
+  }
 
   logout(): void {
     this.authService.logout();

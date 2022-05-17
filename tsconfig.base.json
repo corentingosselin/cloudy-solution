@@ -46,6 +46,15 @@
       "@cloudy/client/feature-auth/shared/utils": [
         "libs/client/feature-auth/shared/utils/src/index.ts"
       ],
+      "@cloudy/client/feature-dashboard": [
+        "libs/client/feature-dashboard/src/index.ts"
+      ],
+      "@cloudy/client/feature-dashboard/data-access": [
+        "libs/client/feature-dashboard/data-access/src/index.ts"
+      ],
+      "@cloudy/client/feature-dashboard/feature": [
+        "libs/client/feature-dashboard/feature/src/index.ts"
+      ],
       "@cloudy/client/feature-home/feature": [
         "libs/client/feature-home/feature/src/index.ts"
       ],
