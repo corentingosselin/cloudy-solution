@@ -11,7 +11,8 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { MetricsResponse } from '@cloudy/shared/api';
 import { MonitoringService } from './monitoring.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { from, Observable } from 'rxjs';
+import { first, from, Observable } from 'rxjs';
+import { AdminGuard } from '../auth/guards/admin.guard';
 
 @WebSocketGateway({
   cors: {
@@ -23,36 +24,44 @@ export class MonitoringGateway
 {
   constructor(private monitoringService: MonitoringService) {}
 
-  metrics$: Observable<MetricsResponse>;
+  metrics$: Observable<MetricsResponse> = from(this.monitoringService.getMetrics())
+  private logger: Logger = new Logger('MonitoringGateway');
 
-  onModuleInit() {}
+  
+  onModuleInit() {
+
+  }
 
   @Cron('*/15 * * * * *')
   fetchNewMetrics() {
     this.metrics$ = from(this.monitoringService.getMetrics());
-    this.metrics$.subscribe(metric => {
-        console.log(metric);
-    });
-    this.logger.log('updated metrics');
   }
 
   @WebSocketServer() server: Server;
-  private logger: Logger = new Logger('MonitoringGateway');
-
   sendMessage(metric: MetricsResponse) {
     this.server.emit('metrics', metric);
   }
 
   afterInit(server: Server) {
     this.logger.log('Init');
+    this.metrics$.subscribe(metric => {
+      this.sendMessage(metric);
+      this.logger.log('metrics updated');
+    });
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard,AdminGuard)
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
+    this.metrics$.pipe(
+      first()
+    ).subscribe(metrics => {
+      client.emit('metrics',metrics)
+    })
+
   }
 }

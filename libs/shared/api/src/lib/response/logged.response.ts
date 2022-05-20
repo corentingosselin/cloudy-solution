@@ -4,5 +4,6 @@ export interface LoggedResponse {
     firstname: string;
     lastname: string;
     access_token: string;
+    is_admin: boolean;
 }
         

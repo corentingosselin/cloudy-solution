@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as argon2 from 'argon2';
+import { UserAdmin } from './user-admin.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -33,6 +35,7 @@ export class User extends BaseEntity {
 
   @Column()
   password!: string;
+
 
   @BeforeInsert()
   async hashPassword() {

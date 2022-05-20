@@ -30,8 +30,9 @@ export class AuthService {
         }, HttpStatus.BAD_REQUEST);
 
         const user = await this.usersService.createUser(createUserDto);
+
         const access_token = this.jwtService.sign({ username: user.email, userId: user.id });
-        const result = { ...user, access_token };
+        const result = { ...user, access_token, is_admin: false };
         return result;
     }
 
@@ -54,8 +55,10 @@ export class AuthService {
         }
 
         delete user.password;
+
         const access_token = this.jwtService.sign({ username: user.email, userId: user.id });
-        const result = { ...user, access_token };
+        const isAdmin = await this.usersService.isAdminById(user.id);
+        const result = { ...user, access_token, is_admin: isAdmin };
         return result;
     }
 

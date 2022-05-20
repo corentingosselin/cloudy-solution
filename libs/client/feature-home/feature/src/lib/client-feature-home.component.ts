@@ -5,6 +5,8 @@ import { FileService } from '@cloudy/client/shared';
 import { FileItemResponse } from '@cloudy/shared/api';
 import { BehaviorSubject, take } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'cloudy-home',
@@ -12,7 +14,7 @@ import { HttpEventType } from '@angular/common/http';
   styleUrls: ['./client-feature-home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(public fileService: FileService) {}
+  constructor(public fileService: FileService, private translateService: TranslateService, private toastr : ToastrService) {}
 
   files: FileHandle[] = [];
   faUpload = faUpload;
@@ -33,11 +35,12 @@ export class HomeComponent implements OnInit {
           const item: FileItemResponse = event.body as FileItemResponse;
           if (event.body) {
             this.fileService.fileItems$.getValue().push(item);
+            this.toastr.success(this.translateService.instant('commons.file-uploaded'));
           }
         }
       },
       (error) => {
-
+        this.toastr.error(this.translateService.instant('error.error-occured'));
         console.log(error);
       }
     );

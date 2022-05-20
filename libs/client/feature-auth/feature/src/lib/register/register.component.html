@@ -11,18 +11,18 @@
           <cloudy-input
             labelName="commons.name"
             controlName="lastname"
-            error="{{ errorResult.error.lastname }}"
+            error="{{ errorResult.error?.lastname }}"
           >
           </cloudy-input>
           <cloudy-input
             labelName="commons.firstname"
             controlName="firstname"
-            error="{{ errorResult.error.firstname }}"
+            error="{{ errorResult.error?.firstname }}"
           ></cloudy-input>
           <cloudy-input
             labelName="commons.email"
             controlName="email"
-            error="{{ errorResult.error.email }}"
+            error="{{ errorResult.error?.email }}"
           >
           </cloudy-input>
         </div>
@@ -32,13 +32,13 @@
             type="password"
             labelName="commons.password"
             controlName="password"
-            error="{{ errorResult.error.password }}"
+            error="{{ errorResult.error?.password }}"
           ></cloudy-input>
           <cloudy-input
             type="password"
             labelName="commons.confirm-password"
             controlName="confirmPassword"
-            error="{{ errorResult.error.confirmPassword }}"
+            error="{{ errorResult.error?.confirmPassword }}"
           ></cloudy-input>
         </div>
       </div>

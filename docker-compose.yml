@@ -48,9 +48,14 @@ services:
     networks:
       - shared-network
     volumes:
-      - ./minio:/data
+      - minio_volume:/data
     command: server /data --console-address ":9001"
 networks:
   shared-network:
 volumes:
+  minio_volume:
+      driver_opts:
+        type: tmpfs
+        o: "size=${MINIO_VOLUME_SIZE}"
+        device: tmpfs
   prometheus-data:

@@ -4,15 +4,26 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { LoggedResponse, LoginDto, RegisterDto } from '@cloudy/shared/api';
 import { AUTH_API, httpOptions } from '@cloudy/client/shared';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthentificationService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService,
+    private translateService: TranslateService
+  ) {}
 
-  login(login: LoginDto) : Observable<LoggedResponse>{
-    return this.http.post<LoggedResponse>(AUTH_API + 'login', login, httpOptions);
+  login(login: LoginDto): Observable<LoggedResponse> {
+    return this.http.post<LoggedResponse>(
+      AUTH_API + 'login',
+      login,
+      httpOptions
+    );
   }
 
   register(register: RegisterDto): Observable<LoggedResponse> {
@@ -38,6 +49,16 @@ export class AuthentificationService {
     return null;
   }
 
+  //is admin
+  isAdmin(): boolean {
+    const user = this.getUser();
+    if (user == null) {
+      this.logout();
+      return false;
+    }
+    return user.is_admin;
+  }
+
   //is user logged in
   isLoggedIn(): boolean {
     if (localStorage.getItem('user')) {
@@ -52,6 +73,7 @@ export class AuthentificationService {
   //logout
   logout() {
     localStorage.removeItem('user');
+    this.toastr.success(this.translateService.instant('auth.logged-out'));
     this.router.navigate(['/login']);
   }
 

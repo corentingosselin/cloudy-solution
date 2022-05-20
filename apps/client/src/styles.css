@@ -44,3 +44,11 @@ fa-icon {
     font-size: 3rem;
     color: white;
 }
+
+.ngx-toastr {
+    box-shadow: none !important;
+}
+
+.toast-container {
+    box-shadow: none !important;
+}

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountFeatureModule } from '@cloudy/client/feature-account/feature';
-import { AuthGuard } from '@cloudy/client/feature-auth/data-access';
+import { AdminGuard, AuthGuard } from '@cloudy/client/feature-auth/data-access';
 import { ClientFeatureAuthModule } from '@cloudy/client/feature-auth/feature';
 import { DashboardFeatureModule } from '@cloudy/client/feature-dashboard/feature';
+import { SocketIoConfig } from 'ngx-socket-io';
 
 const routes: Routes = [
   {
@@ -44,8 +45,9 @@ const routes: Routes = [
     AccountFeatureModule,
     DashboardFeatureModule,
     RouterModule.forRoot(routes),
+
   ],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminGuard],
 })
 export class AppRoutingModule {}

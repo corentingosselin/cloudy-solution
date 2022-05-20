@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
+  
   onSubmit(): void {
     if (!this.form.valid) return;
     const val = this.form.value;
@@ -60,10 +60,18 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (user) => {
           this.authService.save(user);
-          this.router.navigate(['/']);
-          this.toastr.success('You are logged in');
+          this.router.navigate(['/' + (user.is_admin ? 'dashboard' : '')]);
+          this.toastr.success(this.translateService.instant('auth.logged-in'));
         },
-        error: (err) => {          
+        error: (err) => {         
+          if(err.status === 500 || err.status === 0 || !err.error.key){
+            this.errorResult = {
+              error: {},
+              errorTitle: 'error.unknown-error',
+            };
+            return;
+          }
+
           const error = {
             [err.error.field]: this.translateService.instant(err.error.message),
           };

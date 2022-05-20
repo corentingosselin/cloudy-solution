@@ -9,6 +9,7 @@ import { AuthentificationService } from '@cloudy/client/feature-auth/data-access
 import { LoggedResponse } from '@cloudy/shared/api';
 import { GenericValidator } from '@cloudy/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'cloudy-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     @Inject(AuthentificationService)
     private authService: AuthentificationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private toastr: ToastrService
   ) {
     this.form = this.formBuilder.group(
       {
@@ -78,10 +80,20 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: (loggedResponse: LoggedResponse) => {
           this.authService.save(loggedResponse);
+          this.toastr.success(this.translateService.instant('auth.registered'));
           //navigate to home page
           this.router.navigate(['/']);
         },
         error: (err) => {
+
+          if(err.status === 500 || err.status === 0 || !err.error.key){
+            this.errorResult = {
+              error: {},
+              errorTitle: 'error.unknown-error',
+            };
+            return;
+          }
+
           //reset invalid control
           this.form.controls[err.error.field].reset();
 

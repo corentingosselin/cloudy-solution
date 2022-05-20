@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FileItemResponse } from '@cloudy/shared/api';
 import { faFile, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { FileService } from '../data-access/file.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { FileService } from '../data-access/file.service';
   styleUrls: ['./file-item.component.scss'],
 })
 export class FileItemComponent implements OnInit {
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService, private toastr: ToastrService, private translateService : TranslateService) {}
 
   faFile = faFile;
   faEllipsisH = faEllipsisH;
@@ -44,6 +46,8 @@ export class FileItemComponent implements OnInit {
           link = window.URL.createObjectURL(blob);
         }
         window.open(link, '_blank');
+        this.toastr.success(this.translateService.instant('commons.file-downloading'));
+
       });
   }
 
@@ -57,6 +61,8 @@ export class FileItemComponent implements OnInit {
             this.fileService.fileItems$.getValue().indexOf(this.fileItem!),
             1
           );
+          this.toastr.success(this.translateService.instant('commons.file-deleted'));
+
       },
       (err) => {
         console.log(err);
@@ -94,6 +100,8 @@ export class FileItemComponent implements OnInit {
     this.fileService.duplicate(this.fileItem?.name).subscribe((res) => {
       console.log(res);
       this.fileService.fileItems$.getValue().push(res);
+      this.toastr.success(this.translateService.instant('commons.file-duplicated'));
+
     });
   }
 

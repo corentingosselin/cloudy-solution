@@ -1,47 +1,80 @@
-<cloudy-logo width='7' title="Admin dashboard"></cloudy-logo>
+<cloudy-logo width="7" title="Admin dashboard"></cloudy-logo>
 
 <div id="content">
-    <div id="dashboard">
+  <div id="dashboard" *ngIf="currentMetrics$ | async as metrics">
+    <div id="live"><span id="live-icon"></span><span>Live</span></div>
 
-        <div id="live"><span id="live-icon"></span><span>Live</span></div>
+    <h1 id="metric-title">Metrics</h1>
 
-        <h3>Total</h3>
+    <h3>Informations total</h3>
+    <dl class="flex-column">
+      <div class="flex-row">
+        <dt>{{ metrics.user_amount }}</dt>
+        <dd translate>commons.users</dd>
+      </div>
 
-        <dl>
-            <div class="flex-row">
-                <dt>353</dt>
-                <dd>utilisateurs</dd>
-            </div>
-            <div class="flex-row">
-                <dt>4 654</dt>
-                <dd>fichiers en ligne</dd>
-            </div>
-            <div class="flex-row">
-                <dt>3,5 TB</dt>
-                <dd>de données</dd>
-            </div>
+      <div class="flex-row">
+        <dt>{{ metrics.total_files }}</dt>
+        <dd translate>commons.uploaded-files</dd>
+      </div>
+    </dl>
 
-        </dl>
+    <h3>Storage total</h3>
+    <dl class="flex-column">
+      <div class="flex-row">
+        <dt>{{ metrics.total_size }}</dt>
+        <dd translate>commons.of-data</dd>
+      </div>
 
+      <div class="flex-row">
+        <dt>{{ metrics.used_space }}</dt>
+        <dd translate>commons.used-space-os-included</dd>
+      </div>
+      <div class="flex-row">
+        <dt>{{ metrics.total_space }}</dt>
+        <dd translate>commons.total-storage</dd>
+      </div>
+      <div class="flex-row">
+        <dt>{{ metrics.used_space_percentage }}</dt>
+        <dd translate>commons.used-storage</dd>
+      </div>
+    </dl>
 
-        <h3>Moyennes par utilisateur</h3>
-        <dl>
-            <div class="flex-row">
-                <dt>650</dt>
-                <dd>MB de données</dd>
-            </div>
-            <div class="flex-row">
-                <dt>5</dt>
-                <dd>fichiers en ligne</dd>
-            </div>
+    <h3 translate>commons.average-per-user</h3>
+    <dl>
+      <div class="flex-row">
+        <dt>{{ metrics.average_used_space_per_user }}</dt>
+        <dd translate>commons.of-data</dd>
+      </div>
+      <div class="flex-row">
+        <dt>{{ metrics.average_file_per_user }}</dt>
+        <dd translate>commons.uploaded-files</dd>
+      </div>
+    </dl>
+  </div>
 
-        </dl>
+  <div id="search-area">
+    <div class="flex-row" id="search-title">
+      <fa-icon [icon]="faUserFriends" id="users-icon"> </fa-icon>
+      <h2 translate>commons.find-user</h2>
+    </div>
+    <form class="search-user-form">
+      <input
+        [formControl]="searchControl"
+        id="search-user"
+        type="search"
+        placeholder="{{ 'commons.search-user' | translate }}"
+      />
+      <button id="search-button">
+        <fa-icon id="search-icon" [icon]="faSearch"> </fa-icon>
+      </button>
+    </form>
+
+    <div id="users">
+      <ng-container *ngFor="let user of users$ | async">
+        <cloudy-profile-card [userProfile]="user"></cloudy-profile-card>
+      </ng-container>
 
     </div>
-
-    <div id="search-area">
-        <div class="flex-row" id="search-title"><fa-icon [icon]='faUserFriends' id='users-icon'></fa-icon> <h2>Find user</h2></div>
-        <div id="search-bar"><input placeholder="Rechercher par nom ou addresse email..."><fa-icon  id="search-icon" [icon]='faSearch'></fa-icon></div>
-    </div>
-   
+  </div>
 </div>

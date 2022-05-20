@@ -6,10 +6,10 @@
         <div class="container login-fields">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-                <cloudy-input labelName="commons.email" controlName="email" error="{{ errorResult.error.email }}">
+                <cloudy-input labelName="commons.email" controlName="email" error="{{ errorResult.error?.email }}">
                 </cloudy-input>
                 <cloudy-input labelName="commons.password" controlName="password" type="password"
-                    error="{{ errorResult.error.password }}"></cloudy-input>
+                    error="{{ errorResult.error?.password }}"></cloudy-input>
                 <a routerLink="/register" id="register" translate>auth.not-registered-yet</a>
                 <cloudy-button labelName="auth.login"></cloudy-button>
 

@@ -7,14 +7,30 @@
     "confirm-password": "Confirm Password",
     "dropfiles": "Drop files here to upload",
     "my-files": "My Files",
-    "informations": "Informations"
+    "informations": "Informations",
+    "search-user": "Search by name or email...",
+    "users": "users",
+    "of-data":"of data",
+    "used-storage":"used space",
+    "total-storage":"total space",
+    "uploaded-files":"uploaded files",
+    "average-per-user":"Average per user",
+    "find-user":"Find user",
+    "used-space-os-included":"used space (OS included)",
+    "file-uploaded":"File(s) uploaded",
+    "file-duplicated":"File duplicated",
+    "file-deleted":"File deleted",
+    "file-downloading":"File downloading..."
   },
   "auth": {
     "not-registered-yet": "Not registered yet ? Register now here",
     "already-registered": "Already registered ? Sign in here",
     "login": "Login",
     "register": "Register",
-    "logout": "Logout"
+    "logout": "Logout",
+    "logged-in": "You are logged in",
+    "logged-out": "You are logged out",
+    "register-success": "You are now registered"
   },
   "error": {
     "incorrect-password": "Incorrect password",
@@ -28,6 +44,8 @@
     "password-must-be-6-characters": "Password must be 6 characters",
     "password-not-match": "Password does not match",
     "invalid-name": "Invalid lastname",
-    "invalid-firstname": "Invalid firstname"
+    "invalid-firstname": "Invalid firstname",
+    "unknown-error": "Unknown error, please try again later",
+    "error-occured": "An error has occured"
   }
 }

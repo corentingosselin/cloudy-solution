@@ -4,13 +4,14 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from '@env/environment';
 
 
+const user = JSON.parse(localStorage.getItem('user')?.toString() || '{}');
 const config: SocketIoConfig = {
-  url: environment.apiUrl,
+  url: environment.socketUrl,
   options: {
     transportOptions: {
       polling: {
         extraHeaders: {
-          Authorization: localStorage.getItem('CapacitorStorage.token'),
+          Authorization: user.access_token,
         },
       },
     },

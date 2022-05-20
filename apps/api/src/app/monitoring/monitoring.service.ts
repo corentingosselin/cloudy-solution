@@ -16,7 +16,7 @@ export class MonitoringService {
     'minio_bucket_usage_total_bytes',
     'minio_node_disk_free_bytes',
     'minio_node_disk_total_bytes',
-    'minio_node_disk_used_bytes'
+    'minio_node_disk_used_bytes',
   ];
 
   async getMetrics(): Promise<MetricsResponse> {
@@ -41,12 +41,31 @@ export class MonitoringService {
           const total_size: string = this.bytesToSize(
             Number(metrics['minio_bucket_usage_total_bytes'])
           );
+          const total_space: number = Number(
+            metrics['minio_node_disk_total_bytes']
+          );
+          const used_space_percentage: string = `${Math.round(
+            (Number(metrics['minio_node_disk_used_bytes']) / total_space) *
+              100
+          )}%`;
+
+          const average_file_per_user = userAmount === 0 ? 0 : Math.round(
+            Number(metrics['minio_bucket_usage_object_total']) / userAmount
+          );
+          const average_used_space_per_user = userAmount === 0 ? 0 : Math.round(
+            Number(metrics['minio_bucket_usage_total_bytes']) / userAmount
+          );
           return {
             total_files: metrics['minio_bucket_usage_object_total'],
             user_amount: userAmount,
             total_size,
-            total_space: this.bytesToSize(metrics['minio_node_disk_total_bytes']),
+            total_space: this.bytesToSize(
+              metrics['minio_node_disk_total_bytes']
+            ),
             used_space: this.bytesToSize(metrics['minio_node_disk_used_bytes']),
+            used_space_percentage,
+            average_file_per_user,
+            average_used_space_per_user: this.bytesToSize(average_used_space_per_user),
           };
         })
       )
@@ -56,9 +75,9 @@ export class MonitoringService {
 
   //bytes into readable size
   bytesToSize(bytes: number): string {
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
     if (bytes === 0) {
-      return '0 Byte';
+      return '0B';
     }
     const i = parseInt(
       Math.floor(Math.log(bytes) / Math.log(1024)).toString(),

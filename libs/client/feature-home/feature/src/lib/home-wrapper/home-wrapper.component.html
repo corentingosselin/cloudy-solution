@@ -1,0 +1,9 @@
+
+
+<ng-container *ngIf="!isAdmin">
+  <cloudy-home></cloudy-home>
+</ng-container>
+
+<ng-container *ngIf="isAdmin">
+  <cloudy-dashboard></cloudy-dashboard>
+</ng-container>

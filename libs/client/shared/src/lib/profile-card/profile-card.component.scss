@@ -1,0 +1,35 @@
+#profile-card {
+    background-color: #012d37;
+    width: 12rem;
+    height: 12rem;
+    color: white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.card-text {
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+#profile-card:hover {
+    background-color: #014352;
+}
+
+#card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#card-subtitle {
+    color: #BDBDBD;
+    margin-bottom: 0.8rem;
+}
+
+#card-photo {
+    border-radius: 1rem;
+}
