@@ -6,10 +6,11 @@ import {
   Post,
   Req,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { FileService } from './file.service';
 
@@ -20,10 +21,10 @@ export class FileController {
   //upload file
   @Post('')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
-  async upload(@UploadedFile() file, @Req() request) {
+  @UseInterceptors(AnyFilesInterceptor())
+  async upload(@UploadedFiles() files , @Req() request) {
     const user: UserToken = request.user;
-    return this.fileService.upload(user, file);
+    return this.fileService.upload(user, files);
   }
 
   //get user files

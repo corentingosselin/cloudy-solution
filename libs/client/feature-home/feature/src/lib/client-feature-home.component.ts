@@ -28,13 +28,14 @@ export class HomeComponent implements OnInit {
 
   filesDropped(files: FileHandle[]): void {
     this.files = files;
-    this.fileService.upload(files[0].file).subscribe(
+    this.fileService.upload(files).subscribe(
       (event) => {
-        console.log(event);
         if (event.type === HttpEventType.Response) {
-          const item: FileItemResponse = event.body as FileItemResponse;
+          console.log(event);
+          const items: FileItemResponse[] = event.body as FileItemResponse[];
           if (event.body) {
-            this.fileService.fileItems$.getValue().push(item);
+            console.log(items)
+            this.fileService.fileItems$.getValue().push(...items);
             this.toastr.success(this.translateService.instant('commons.file-uploaded'));
           }
         }

@@ -3,6 +3,7 @@ import { HttpClient, HttpEvent } from '@angular/common/http';
 import { FILE_API } from '@cloudy/client/shared';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { FileItemResponse } from '@cloudy/shared/api';
+import { FileHandle } from '@cloudy/shared/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,12 @@ export class FileService {
 
 
   //upload file
-  upload(file: File): Observable<HttpEvent<FileItemResponse>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-    return this.http.post<FileItemResponse>(FILE_API, formData, { 
+  upload(files: FileHandle[]): Observable<HttpEvent<FileItemResponse[]>> {
+    let formData: FormData = new FormData();
+    files.forEach(file => {
+      formData.append('files', file.file, file.file.name);
+    }); 
+    return this.http.post<FileItemResponse[]>(FILE_API, formData, { 
       reportProgress: true,
       observe: 'events'
     });

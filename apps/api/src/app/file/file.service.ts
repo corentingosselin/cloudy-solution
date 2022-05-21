@@ -13,23 +13,36 @@ export class FileService {
 
   constructor(private readonly minio: MinioService) {}
 
-  async upload(user: UserToken, file: any): Promise<FileItemResponse> {
-    const fileBucket = this.baseBucket;
-    const fileKey = user.userId + '/' + file.originalname;
-    const result = await this.client.putObject(
-      fileBucket,
-      fileKey,
-      file.buffer
-    );
-    const item = {
-      name: file.originalname,
-      size: file.size,
-      lastModified: new Date(),
-      etag: result.etag,
-      mimetype: file.mimetype,
-    };
-    return item;
+  async upload(user: UserToken, files: any[]): Promise<FileItemResponse[]> {
+    console.log("test");
+    const filesUploaded : FileItemResponse[] = await new Promise<FileItemResponse[]>((resolve) => {
+      const tempFiles: FileItemResponse[] = [];
+      files.forEach(async (file) => {
+        const fileBucket = this.baseBucket;
+        const fileKey = user.userId + '/' + file.originalname;
+        const result = await this.client.putObject(
+          fileBucket,
+          fileKey,
+          file.buffer
+        );
+        const item = {
+          name: file.originalname,
+          size: file.size,
+          lastModified: new Date(),
+          etag: result.etag,
+          mimetype: file.mimetype,
+        };
+        tempFiles.push(item);
+      });
+      console.log(tempFiles);
+      resolve(tempFiles);
+    });
+  
+    console.log(filesUploaded);
+    return filesUploaded;
   }
+
+
 
   //get user files
   async list(user: UserToken) {
