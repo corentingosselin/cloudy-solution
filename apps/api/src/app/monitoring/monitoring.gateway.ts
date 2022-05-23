@@ -1,18 +1,15 @@
-import {
-  WebSocketGateway,
-  OnGatewayInit,
-  WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-} from '@nestjs/websockets';
-import { Logger, UseGuards } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { MetricsResponse } from '@cloudy/shared/api';
-import { MonitoringService } from './monitoring.service';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Logger, UseGuards } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
+import {
+  OnGatewayConnection,
+  OnGatewayDisconnect, OnGatewayInit, WebSocketGateway, WebSocketServer
+} from '@nestjs/websockets';
 import { first, from, Observable } from 'rxjs';
+import { Server, Socket } from 'socket.io';
 import { AdminGuard } from '../auth/guards/admin.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { MonitoringService } from './monitoring.service';
 
 @WebSocketGateway({
   cors: {
@@ -27,7 +24,6 @@ export class MonitoringGateway
   metrics$: Observable<MetricsResponse> = from(this.monitoringService.getMetrics())
   private logger: Logger = new Logger('MonitoringGateway');
 
-  
   onModuleInit() {
 
   }

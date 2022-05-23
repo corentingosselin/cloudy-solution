@@ -3,13 +3,17 @@ import { FormControl } from '@angular/forms';
 import { DashboardService } from '@cloudy/client/feature-dashboard/data-access';
 import { MetricsResponse, UserProfile } from '@cloudy/shared/api';
 import { faUserFriends, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import {
   debounceTime,
+  delay,
   distinctUntilChanged,
   filter,
   map,
   Observable,
   of,
+  skip,
   startWith,
 } from 'rxjs';
 
@@ -36,7 +40,11 @@ export class DashboardComponent implements OnInit {
   users$: Observable<UserProfile[]> = of([]);
   public searchControl: FormControl = new FormControl('');
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private toastr: ToastrService,
+    private translateService: TranslateService
+  ) {}
 
   currentMetrics$: Observable<MetricsResponse> =
     this.dashboardService.currentMetrics$.pipe(
@@ -46,6 +54,20 @@ export class DashboardComponent implements OnInit {
 
   private readonly debounce: number = 400;
   ngOnInit(): void {
+    this.currentMetrics$.pipe(
+      delay(3000),
+      skip(1)).subscribe((metrics) => {
+        if(parseInt(metrics.used_space_percentage) >= 100) {
+          this.toastr.error(this.translateService.instant('error.space-full'),'',{
+            disableTimeOut: true,
+          });
+        } else if (parseInt(metrics.used_space_percentage) > 90) {
+        this.toastr.warning(this.translateService.instant('error.almost-full'), '', {
+          disableTimeOut: true,
+        });
+      }
+    });
+
     this.searchControl.valueChanges
       .pipe(
         debounceTime(this.debounce),
@@ -53,10 +75,15 @@ export class DashboardComponent implements OnInit {
         filter((value) => value.length > 3)
       )
       .subscribe((query) => {
-        console.log(query);
         this.users$ = this.dashboardService.getUsers(query);
       });
 
-    //this.users$.subscribe(users => console.log(users));
+      this.searchControl.valueChanges
+      .pipe(
+        filter((value) => value.length <= 3)
+      )
+      .subscribe(() => {
+        this.users$ = of([]);
+      });
   }
 }

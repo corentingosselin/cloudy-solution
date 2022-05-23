@@ -1,10 +1,12 @@
 import { Logger, Module } from '@nestjs/common';
 import { MinioModule, MinioService } from 'nestjs-minio-client';
+import { UserModule } from '../user/user.module';
 import { FileController } from './file.controller';
 import { FileService } from './file.service';
 
 @Module({
   imports: [
+    UserModule,
     MinioModule.register({
       endPoint: process.env.MINIO_ENDPOINT,
       port: Number(process.env.MINIO_PORT),

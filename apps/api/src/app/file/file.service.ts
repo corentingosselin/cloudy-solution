@@ -1,6 +1,7 @@
 import { UserToken, FileData, FileItemResponse } from '@cloudy/shared/api';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
+import { Observable } from 'rxjs';
 import internal = require('stream');
 
 @Injectable()
@@ -14,49 +15,55 @@ export class FileService {
   constructor(private readonly minio: MinioService) {}
 
   async upload(user: UserToken, files: any[]): Promise<FileItemResponse[]> {
-    const uploadedFiles = await this.uploadFiles(files, user);
-    console.log(uploadedFiles);
-    return uploadedFiles;
+    try {
+      const uploadedFiles = await this.uploadFiles(files, user);
+      return uploadedFiles;
+    } catch (error) {
+      if (error.message.includes('no space left on device')) {
+        throw new HttpException(
+          {
+            status: 500,
+            message: 'error.no-enough-space',
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR
+        );
+      } else throw new HttpException({}, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   //upload files
   async uploadFiles(files: any[], user: UserToken) {
-  
-    files.forEach(async (file) => {
-      const fileBucket = this.baseBucket;
-      const fileKey = user.userId + '/' + file.originalname;
-      const result = await this.client.putObject(
-        fileBucket,
-        fileKey,
-        file.buffer
-      );
-      const item = {
-        name: file.originalname,
-        size: file.size,
-        lastModified: new Date(),
-        etag: result.etag,
-        mimetype: file.mimetype,
-      };
-
-    });
-    return tempFiles;
+    const uploadedFiles: FileItemResponse[] = [];
+    for (const file of files) {
+      const item = await this.uploadFile(file, user);
+      uploadedFiles.push(item);
+    }
+    return uploadedFiles;
   }
-  
-  async uploadFile(file: any, user: UserToken) {
+
+  async uploadFile(file: any, user: UserToken): Promise<FileItemResponse> {
     const fileBucket = this.baseBucket;
     const fileKey = user.userId + '/' + file.originalname;
-    return this.client.putObject(
+
+    const result = await this.client.putObject(
       fileBucket,
       fileKey,
       file.buffer
     );
 
+    const item = {
+      name: file.originalname,
+      size: file.size,
+      lastModified: new Date(),
+      etag: result.etag,
+      mimetype: file.mimetype,
+    };
+    return item;
   }
-  //get user files
-  async list(user: UserToken) {
-    const fileBucket = this.baseBucket;
-    const filePrefix = user.userId + '/';
 
+  async listByUserId(userId: number) {
+    const fileBucket = this.baseBucket;
+    const filePrefix = userId + '/';
     const files: FileItemResponse[] = await new Promise((resolve, reject) => {
       const tempFiles: FileItemResponse[] = [];
       const stream = this.client.extensions.listObjectsV2WithMetadata(
@@ -76,6 +83,11 @@ export class FileService {
     return files;
   }
 
+  //get user files
+  async list(user: UserToken) {
+    return this.listByUserId(user.userId);
+  }
+
   //download files from minio server
   async download(user: UserToken, file: string) {
     const fileBucket = this.baseBucket;
@@ -86,8 +98,13 @@ export class FileService {
 
   //delete files from minio server
   async delete(user: UserToken, file: string) {
+    this.deleteByUserId(user.userId, file);
+  }
+
+  //delete file by user id
+  async deleteByUserId(userId: number, file: string) {
     const fileBucket = this.baseBucket;
-    const fileKey = user.userId + '/' + file;
+    const fileKey = userId + '/' + file;
     await this.client.removeObject(fileBucket, fileKey);
   }
 
@@ -113,7 +130,6 @@ export class FileService {
     const FileTargetName = fileTarget.split('.').slice(0, -1).join('.');
     const fileDisplayName = FileTargetName + '_copy.' + fileExtension;
     const fileName = user.userId + '/' + fileDisplayName;
-    console.log(fileName);
     let size = 0;
 
     const streamResult = await new Promise<internal.Readable>(

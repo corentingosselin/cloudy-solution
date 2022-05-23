@@ -1,0 +1,53 @@
+<ng-container *ngIf="user$ | async as user">
+  <cloudy-logo width="7"></cloudy-logo>
+
+  <div id="user-card">
+    <fa-icon id="user-icon" [icon]="faPortrait"></fa-icon>
+    <div class="flex-column" id="card-content">
+      <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+
+      <div id="actions" class="flex-row">
+        <button *ngIf="user.view" (click)="viewUser()" id="ban-view" translate>
+          <fa-icon
+            id="ban-icon"
+            [icon]="faEyeSlash"
+          ></fa-icon
+          >admin.prevent-view
+        </button>
+
+        <button *ngIf="!user.view" (click)="viewUser()" id="ban-view" translate>
+          <fa-icon
+            id="ban-icon"
+            [icon]="faEye"
+          ></fa-icon
+          >admin.allow-view
+        </button>
+
+
+        <button *ngIf="user.banned" (click)="banUser()" id="ban" translate>
+          <fa-icon id="ban-icon" [icon]="faBan"></fa-icon
+          >admin.unban-user
+        </button>
+
+        <button *ngIf="!user.banned" (click)="banUser()" id="ban" translate>
+          <fa-icon id="ban-icon" [icon]="faBan"></fa-icon
+          >admin.ban-user
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="user-files" class="flex-row">
+    <fa-icon id="files-icon" [icon]="faCopy"></fa-icon>
+    <h1 id="title" translate>admin.user-files</h1>
+  </div>
+
+  <div id="files-container">
+    <div id="file-items">
+      <cloudy-files-area
+        [userId]="userId"
+        [files$]="fileService.fileItems$"
+      ></cloudy-files-area>
+    </div>
+  </div>
+</ng-container>

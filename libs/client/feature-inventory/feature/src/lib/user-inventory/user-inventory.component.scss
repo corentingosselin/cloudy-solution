@@ -1,0 +1,83 @@
+cloudy-logo {
+  display: flex;
+  justify-content: center;
+}
+
+#user-card {
+  margin: 2rem;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #012d37;
+  width: fit-content;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+#actions {
+    gap: 0.5rem;
+}
+
+#ban {
+  background-color: #900000;
+}
+
+#ban-view {
+  background-color: #007f90;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  outline: none;
+  border: none;
+  color: white;
+  width: 8rem;
+  height: 1.8rem;
+}
+
+#user-icon {
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  font-size: 5rem;
+}
+
+#ban-icon {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+#card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
+#files-container {
+  background-color: #012d37;
+  height: 100vh;
+  margin: 2rem;
+  height: fit-content;
+}
+
+.flex-row {
+  align-items: flex-end;
+}
+
+#user-files {
+  margin: 2rem;
+}
+
+#files-icon {
+  margin-right: 1.5rem;
+}

@@ -7,15 +7,16 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UserModule } from '../user/user.module';
 import { AdminGuard } from './guards/admin.guard';
+import { ViewGuard } from './guards/view.guard';
 
 @Module({
-  providers: [AuthService, JwtStrategy, JwtAuthGuard, AdminGuard],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard, AdminGuard, ViewGuard],
   imports: [
     UserModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1800s' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRATION },
     }),
   ],
   controllers: [AuthController],

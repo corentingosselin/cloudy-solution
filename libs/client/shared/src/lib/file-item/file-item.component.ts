@@ -11,15 +11,21 @@ import { FileService } from '../data-access/file.service';
   styleUrls: ['./file-item.component.scss'],
 })
 export class FileItemComponent implements OnInit {
-  constructor(private fileService: FileService, private toastr: ToastrService, private translateService : TranslateService) {}
+  constructor(
+    private fileService: FileService,
+    private toastr: ToastrService,
+    private translateService: TranslateService
+  ) {}
 
   faFile = faFile;
   faEllipsisH = faEllipsisH;
 
   @Input() fileItem?: FileItemResponse;
+  @Input() userId: number | undefined;
 
   fileNameDisplay = 'unknown';
   fileSizeDisplay = '? KB';
+  fileDateDisplay = 'unknown';
   fileFormat = '';
   tagColor = '#BD8800';
 
@@ -35,25 +41,31 @@ export class FileItemComponent implements OnInit {
 
   download(): void {
     if (!this.fileItem) return;
-    this.fileService
-      .getUrlPreview(this.fileItem?.name)
-      .subscribe(async (url) => {
-        let link = url.preview_url;
-        if (!this.fileItem?.mimetype.includes('octet-stream')) {
-          const res = await fetch(link);
-          let blob = await res.blob();
-          blob = blob.slice(0, blob.size, 'application/octet-stream');
-          link = window.URL.createObjectURL(blob);
-        }
-        window.open(link, '_blank');
-        this.toastr.success(this.translateService.instant('commons.file-downloading'));
+    const downloadMethod = this.userId
+      ? this.fileService.getUrlPreviewByUserId(this.fileItem?.name, this.userId)
+      : this.fileService.getUrlPreview(this.fileItem?.name);
 
-      });
+    downloadMethod.subscribe(async (url) => {
+      let link = url.preview_url;
+      if (!this.fileItem?.mimetype.includes('octet-stream')) {
+        const res = await fetch(link);
+        let blob = await res.blob();
+        blob = blob.slice(0, blob.size, 'application/octet-stream');
+        link = window.URL.createObjectURL(blob);
+      }
+      window.open(link, '_blank');
+      this.toastr.success(
+        this.translateService.instant('commons.file-downloading')
+      );
+    });
   }
 
   delete(): void {
     if (!this.fileItem) return;
-    this.fileService.delete(this.fileItem?.name).subscribe(
+    const deleteMethod = this.userId
+      ? this.fileService.deleteByUserId(this.fileItem?.name, this.userId)
+      : this.fileService.delete(this.fileItem?.name);
+    deleteMethod.subscribe(
       (res) => {
         this.fileService.fileItems$
           .getValue()
@@ -61,8 +73,9 @@ export class FileItemComponent implements OnInit {
             this.fileService.fileItems$.getValue().indexOf(this.fileItem!),
             1
           );
-          this.toastr.success(this.translateService.instant('commons.file-deleted'));
-
+        this.toastr.error(
+          this.translateService.instant('commons.file-deleted')
+        );
       },
       (err) => {
         console.log(err);
@@ -73,11 +86,13 @@ export class FileItemComponent implements OnInit {
   preview() {
     //open link in new tab
     if (!this.fileItem) return;
+    const previewMethod = this.userId
+      ? this.fileService.getUrlPreviewByUserId(this.fileItem?.name, this.userId)
+      : this.fileService.getUrlPreview(this.fileItem?.name);
 
-    this.fileService.getUrlPreview(this.fileItem?.name).subscribe(
+    previewMethod.subscribe(
       async (url) => {
         let link = url.preview_url;
-
         const res = await fetch(link);
         let blob = await res.blob();
         blob = blob.slice(
@@ -98,10 +113,10 @@ export class FileItemComponent implements OnInit {
   duplicate(): void {
     if (!this.fileItem) return;
     this.fileService.duplicate(this.fileItem?.name).subscribe((res) => {
-      console.log(res);
       this.fileService.fileItems$.getValue().push(res);
-      this.toastr.success(this.translateService.instant('commons.file-duplicated'));
-
+      this.toastr.success(
+        this.translateService.instant('commons.file-duplicated')
+      );
     });
   }
 
@@ -117,6 +132,11 @@ export class FileItemComponent implements OnInit {
     if (fileName.length > 16) {
       this.fileNameDisplay = fileName.substring(0, 16) + '... ';
     } else this.fileNameDisplay = fileName;
+
+    //format date
+    this.fileDateDisplay = new Date(
+      this.fileItem?.lastModified
+    ).toLocaleString();
 
     //KB MB GB of file size
     if (fileSize > 1024) {

@@ -10,17 +10,30 @@
     "informations": "Informations",
     "search-user": "Search by name or email...",
     "users": "users",
-    "of-data":"of data",
-    "used-storage":"used space",
-    "total-storage":"total space",
-    "uploaded-files":"uploaded files",
-    "average-per-user":"Average per user",
-    "find-user":"Find user",
-    "used-space-os-included":"used space (OS included)",
-    "file-uploaded":"File(s) uploaded",
-    "file-duplicated":"File duplicated",
-    "file-deleted":"File deleted",
-    "file-downloading":"File downloading..."
+    "of-data": "of data",
+    "used-storage": "used space",
+    "total-storage": "total space",
+    "uploaded-files": "uploaded files",
+    "average-per-user": "Average per user",
+    "find-user": "Find user",
+    "used-space-os-included": "used space (OS included)",
+    "file-uploaded": "File(s) uploaded",
+    "file-duplicated": "File duplicated",
+    "file-deleted": "File deleted",
+    "file-downloading": "File downloading...",
+    "no-file": "There is no file uploaded right now",
+    "my-account": "My Account"
+  },
+  "admin": {
+    "prevent-view": "Prevent view",
+    "allow-view": "Allow view",
+    "ban-user": "Ban user",
+    "unban-user": "Unban user",
+    "user-files": "User files",
+    "user-banned": "User banned",
+    "user-unbanned": "User unbanned",
+    "user-view": "User allowed to view files",
+    "user-unview": "User not allowed to view files"
   },
   "auth": {
     "not-registered-yet": "Not registered yet ? Register now here",
@@ -46,6 +59,13 @@
     "invalid-name": "Invalid lastname",
     "invalid-firstname": "Invalid firstname",
     "unknown-error": "Unknown error, please try again later",
-    "error-occured": "An error has occured"
+    "error-occured": "An error has occured",
+    "no-enough-space": "No more space, sorry for inconvenience",
+    "file-too-big": "File too big, try with a smaller file",
+    "almost-full": "Server is almost full, add more space",
+    "space-full": "Server is full, user can't upload files",
+    "cant-open-profile": "Couldn't open this profile",
+    "user-banned":" You are banned for illegal upload",
+    "not-allowed-view":"You are not allowed to view your files, please contact an administrator"
   }
 }

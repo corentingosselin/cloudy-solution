@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '@cloudy/client/feature-auth/data-access';
-import { LoggedResponse } from '@cloudy/shared/api';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/client/feature-inventory/feature",
+  "sourceRoot": "libs/client/feature-inventory/feature/src",
+  "prefix": "cloudy",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/feature-inventory/feature"],
+      "options": {
+        "jestConfig": "libs/client/feature-inventory/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/feature-inventory/feature/src/**/*.ts",
+          "libs/client/feature-inventory/feature/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

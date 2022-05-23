@@ -63,21 +63,31 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/' + (user.is_admin ? 'dashboard' : '')]);
           this.toastr.success(this.translateService.instant('auth.logged-in'));
         },
-        error: (err) => {         
-          if(err.status === 500 || err.status === 0 || !err.error.key){
+        error: (err) => {       
+          if(err.status === 500 || err.status === 0) {
             this.errorResult = {
               error: {},
-              errorTitle: 'error.unknown-error',
+              errorTitle:  this.translateService.instant('error.unknown-error'),
+            };
+            return;
+          } 
+
+          //is user banned
+          if(err.status === 403) {
+            this.errorResult = {
+              error: {},
+              errorTitle:  this.translateService.instant(err.error.message),
             };
             return;
           }
+
 
           const error = {
             [err.error.field]: this.translateService.instant(err.error.message),
           };
           this.errorResult = {
             error: error,
-            errorTitle: 'error.invalid-form',
+            errorTitle:  this.translateService.instant('error.invalid-form'),
           };
         },
       });

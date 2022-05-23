@@ -4,7 +4,7 @@ import { AccountFeatureModule } from '@cloudy/client/feature-account/feature';
 import { AdminGuard, AuthGuard } from '@cloudy/client/feature-auth/data-access';
 import { ClientFeatureAuthModule } from '@cloudy/client/feature-auth/feature';
 import { DashboardFeatureModule } from '@cloudy/client/feature-dashboard/feature';
-import { SocketIoConfig } from 'ngx-socket-io';
+import { InventoryFeatureModule } from 'libs/client/feature-inventory/feature/src';
 
 const routes: Routes = [
   {
@@ -36,6 +36,13 @@ const routes: Routes = [
         (m) => m.DashboardFeatureModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('@cloudy/client/feature-inventory/feature').then(
+        (m) => m.InventoryFeatureModule
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];
 
@@ -44,6 +51,7 @@ const routes: Routes = [
     ClientFeatureAuthModule,
     AccountFeatureModule,
     DashboardFeatureModule,
+    InventoryFeatureModule,
     RouterModule.forRoot(routes),
 
   ],

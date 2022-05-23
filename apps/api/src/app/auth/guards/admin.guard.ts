@@ -6,7 +6,6 @@ import { UserService } from '../../user/user.service';
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-
     constructor(private userService: UserService) {}
 
   canActivate(
@@ -14,7 +13,6 @@ export class AdminGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     const token: UserToken = request.user;
-    console.log(token);
     return this.userService.isAdminById(token.userId);
   }
 }

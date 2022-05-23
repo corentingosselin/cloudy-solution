@@ -1,7 +1,24 @@
 <div id="file-items">
-    
-    <ng-container *ngFor="let file of files | async">
-        <cloudy-file-item [fileItem]="file"></cloudy-file-item>
+  <ng-container *ngIf="files$ | async as files">
+    <ng-container *ngIf="viewForbidden">
+      <p translate>error.not-allowed-view</p>
     </ng-container>
+    <ng-container *ngIf="!viewForbidden">
+      <ng-container *ngIf="files.length > 0; then filesDisplay; else nofiles">
+      </ng-container>
 
+      <ng-template #nofiles>
+        <p translate>commons.no-file</p>
+      </ng-template>
+
+      <ng-template #filesDisplay>
+        <ng-container *ngFor="let file of files">
+          <cloudy-file-item
+            [userId]="userId"
+            [fileItem]="file"
+          ></cloudy-file-item>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </ng-container>
 </div>

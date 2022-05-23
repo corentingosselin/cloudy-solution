@@ -13,6 +13,10 @@ export class FileService {
 
   fileItems$: BehaviorSubject<FileItemResponse[]> = new BehaviorSubject<FileItemResponse[]>([]);
 
+  //get file list by user id
+  getFilesByUserId(userId: number): Observable<FileItemResponse[]> {
+    return this.http.get<FileItemResponse[]>(FILE_API + 'list/' + userId);
+  }
 
   //upload file
   upload(files: FileHandle[]): Observable<HttpEvent<FileItemResponse[]>> {
@@ -37,6 +41,12 @@ export class FileService {
     return this.http.get<{preview_url: string}>(FILE_API + 'preview/' + file);
   }
 
+
+  //get file preview url by userId
+  getUrlPreviewByUserId(file: string, userId: number): Observable<{preview_url: string}> {
+    return this.http.get<{preview_url: string}>(FILE_API + 'preview/' + file, {params: {user: userId}});
+  }
+
   //get files
   getFiles(): Observable<FileItemResponse[]> {
     return this.http.get<FileItemResponse[]>(FILE_API + 'list');
@@ -45,6 +55,11 @@ export class FileService {
   //delete file
   delete(file: string): Observable<boolean> {
     return this.http.get<{deleted: boolean}>(FILE_API + 'delete/' + file).pipe(map(res => res.deleted));
+  }
+
+  //delete file by user id
+  deleteByUserId(file: string, userId: number): Observable<boolean> {
+    return this.http.get<{deleted: boolean}>(FILE_API + 'delete/' + file, {params: {user: userId}}).pipe(map(res => res.deleted));
   }
 
 }

@@ -17,6 +17,8 @@
     "client-feature-home-shared-ui": "libs/client/feature-home/shared/ui",
     "client-feature-home-shared-utils": "libs/client/feature-home/shared/utils",
     "client-feature-home-utils": "libs/client/feature-home/utils",
+    "client-feature-inventory-data-access": "libs/client/feature-inventory/data-access",
+    "client-feature-inventory-feature": "libs/client/feature-inventory/feature",
     "client-shared": "libs/client/shared",
     "shared-api": "libs/shared/api",
     "shared-i18n": "libs/shared/i18n",

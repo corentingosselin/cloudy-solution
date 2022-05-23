@@ -3,15 +3,19 @@
 }
 
 #file-item {
-    width: 15rem;
+    width: 16rem;
     height: 4.5rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
+    padding: 1rem;
     position: relative;
     margin: 0.5rem;
     cursor: pointer;
+    justify-content: left;
+    align-items: center;
 }
 
+#file-date {
+    color: gray;
+}
 a {
     text-decoration: none;
     font-size: 0.8rem;
@@ -21,6 +25,8 @@ a {
 a:hover {
     color: white;
 }
+
+
 
 #dropdown-menu {
     padding: 0.4rem;
@@ -68,6 +74,7 @@ a:hover {
 
 fa-icon {
     color: gray;
+    font-size: 3.5rem;
 }
 
 
@@ -77,7 +84,7 @@ fa-icon {
 }
 
 #file-size {
-    color: gray;
+    color: #a6a6a6;
 }
 
 .flex-row {

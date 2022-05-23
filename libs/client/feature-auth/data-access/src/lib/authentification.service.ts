@@ -1,11 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { LoggedResponse, LoginDto, RegisterDto } from '@cloudy/shared/api';
-import { AUTH_API, httpOptions } from '@cloudy/client/shared';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { AUTH_API, httpOptions } from '@cloudy/client/shared';
+import { LoggedResponse, LoginDto, RegisterDto } from '@cloudy/shared/api';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +73,7 @@ export class AuthentificationService {
   //logout
   logout() {
     localStorage.removeItem('user');
-    this.toastr.success(this.translateService.instant('auth.logged-out'));
+    this.toastr.error(this.translateService.instant('auth.logged-out'));
     this.router.navigate(['/login']);
   }
 

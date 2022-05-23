@@ -10,7 +10,9 @@ import { Subject } from 'rxjs/internal/Subject';
 export class FilesAreaComponent implements OnInit {
 
 
-  @Input() files?: Subject<FileItemResponse[]>;
+  @Input() files$?: Subject<FileItemResponse[]>;
+  @Input() userId? : number;
+  @Input() viewForbidden = false;
 
   ngOnInit(): void {
   }

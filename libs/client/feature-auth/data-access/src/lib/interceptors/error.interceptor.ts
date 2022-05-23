@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401 && !window.location.href.includes('/login')) {
+        if ((err.status === 401) && !window.location.href.includes('/login')) {
           // auto logout if 401 response returned from api
           this.authenticationService.logout();
           location.reload();

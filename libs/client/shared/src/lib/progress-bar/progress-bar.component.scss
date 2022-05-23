@@ -1,0 +1,35 @@
+#uploading-abs {
+  position: fixed;
+  top: 0;
+  background-color: #012d37;
+  width: 40rem;
+  height: 2rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+#progress-label {
+  margin-right: 1rem;
+}
+
+progress {
+  width: 32rem;
+}
+
+#uploading-card {
+  position: sticky;
+  color: white;
+  font-weight: bold;
+}
+
+progress::-webkit-progress-value {
+    background: #00b0b0;
+}
+
+progress::-webkit-progress-bar {
+  background: #a6a6a6;
+}

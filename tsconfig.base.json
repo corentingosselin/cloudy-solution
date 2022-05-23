@@ -67,6 +67,12 @@
       "@cloudy/client/feature-home/shared/utils": [
         "libs/client/feature-home/shared/utils/src/index.ts"
       ],
+      "@cloudy/client/feature-inventory/data-access": [
+        "libs/client/feature-inventory/data-access/src/index.ts"
+      ],
+      "@cloudy/client/feature-inventory/feature": [
+        "libs/client/feature-inventory/feature/src/index.ts"
+      ],
       "@cloudy/client/shared": ["libs/client/shared/src/index.ts"],
       "@cloudy/commons/file-displayer": [
         "libs/commons/file-displayer/src/index.ts"
