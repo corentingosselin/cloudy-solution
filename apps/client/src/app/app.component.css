@@ -1,6 +1,15 @@
 main {
-    margin-left: 5rem;
     padding: 1rem;
 }
+
+#slidebar {
+    
+}
+
+@media screen and (max-width: 640px) {
+    #slidebar {
+        display: none;
+    }
+  }
 
 

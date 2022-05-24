@@ -4,6 +4,10 @@
 /dist
 /tmp
 /out-tsc
+/ios
+./ios
+./android
+
 
 # dependencies
 node_modules
@@ -48,3 +52,5 @@ Thumbs.db
 
 minio
 cloudy-database
+
+apps/client/ios/
