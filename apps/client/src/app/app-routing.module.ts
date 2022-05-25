@@ -1,20 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountFeatureModule } from '@cloudy/client/feature-account/feature';
+import { ClientCoreFeatureModule } from '@cloudy/client-core-feature';
 import { AdminGuard, AuthGuard } from '@cloudy/client/feature-auth/data-access';
 import { ClientFeatureAuthModule } from '@cloudy/client/feature-auth/feature';
-import { DashboardFeatureModule } from '@cloudy/client/feature-dashboard/feature';
-import { InventoryFeatureModule } from 'libs/client/feature-inventory/feature/src';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () =>
-      import('@cloudy/client/feature-home/feature').then(
-        (m) => m.ClientFeatureHomeModule
-      ),
-    canActivate: [AuthGuard],
-  },
   {
     path: '',
     loadChildren: () =>
@@ -25,23 +15,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@cloudy/client/feature-account/feature').then(
-        (m) => m.AccountFeatureModule
+      import('@cloudy/client-core-feature').then(
+        (m) => m.ClientCoreFeatureModule
       ),
-  },
-  {
-    path: '',
-    loadChildren: () =>
-      import('@cloudy/client/feature-dashboard/feature').then(
-        (m) => m.DashboardFeatureModule
-      ),
-  },
-  {
-    path: '',
-    loadChildren: () =>
-      import('@cloudy/client/feature-inventory/feature').then(
-        (m) => m.InventoryFeatureModule
-      ),
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '' },
 ];
@@ -49,9 +26,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     ClientFeatureAuthModule,
-    AccountFeatureModule,
-    DashboardFeatureModule,
-    InventoryFeatureModule,
+    ClientCoreFeatureModule,
     RouterModule.forRoot(routes),
 
   ],

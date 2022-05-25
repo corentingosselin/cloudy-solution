@@ -1,0 +1,13 @@
+#content {
+    padding: 1rem;
+    margin-left: 5rem;
+}
+
+
+@media screen and (max-width: 640px) {
+    #slidebar {
+        display: none;
+    }
+  }
+
+

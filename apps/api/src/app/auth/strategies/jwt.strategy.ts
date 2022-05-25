@@ -18,6 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if(await this.userService.isBanned(payload.userId))
       throw  new HttpException({
         status: HttpStatus.FORBIDDEN,
+        type: 'banned',
         error: 'error.user-banned'
       }, HttpStatus.FORBIDDEN);
     return { userId: payload.userId, username: payload.username };

@@ -130,7 +130,7 @@ export class UserService {
     const userBanned = await this.userBannedRepository.findOne({
       where: { user: { id: userId } },
     });
-    if (!userBanned) return false;
+    if (!userBanned) return true;
     return userBanned.view;
   }
 
