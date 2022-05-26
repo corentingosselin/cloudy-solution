@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HomeWrapperComponent } from './home-wrapper/home-wrapper.component';
 import { DashboardFeatureModule } from '@cloudy/client/feature-dashboard/feature';
 
-const routes: Routes = [{ path: 'home', component: HomeWrapperComponent }];
+const routes: Routes = [{ path: '', component: HomeWrapperComponent }];
 
 @NgModule({
   imports: [

@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: (loggedResponse: LoggedResponse) => {
           this.authService.save(loggedResponse);
-          this.toastr.success(this.translateService.instant('auth.registered'));
+          this.toastr.success(this.translateService.instant('auth.register-success'));
           //navigate to home page
           this.router.navigate(['/']);
         },

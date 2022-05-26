@@ -1,8 +1,37 @@
-#cloud-logo {
-    height: auto;
-    padding-right: 0.5rem;
+#logo {
+  font-size: 6rem;
+}
+
+
+h1 {
+    font-size: 6rem;
+}
+
+fa-icon {
+  padding-right: 0.5rem;
+  font-size: 6rem;
+
+}
+
+#logo {
+  align-items: center;
 }
 
 .flex-row {
-    align-items: flex-end;
+  align-items: flex-end;
+}
+
+@media screen and (max-width: 640px) {
+  #logo {
+    font-size: 3rem;
+  }
+
+  h1 {
+      font-size: 3rem;
+  }
+
+  fa-icon {
+
+    font-size: 3rem;
+  }
 }

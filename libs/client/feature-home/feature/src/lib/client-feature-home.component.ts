@@ -6,6 +6,7 @@ import { FileItemResponse } from '@cloudy/shared/api';
 import { HttpEventType } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'cloudy-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public fileService: FileService,
     private translateService: TranslateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer
   ) {}
 
   files: FileHandle[] = [];
@@ -28,14 +30,30 @@ export class HomeComponent implements OnInit {
   progressAmount: number = 0;
 
   ngOnInit(): void {
-    this.fileService.getFiles().subscribe((files) => {
-      this.fileService.fileItems$.next(files);
-    }, (error) => {
-      if(error.status === 403) {
-        this.viewForbidden = true;
-        this.toastr.error(this.translateService.instant('error.error-occured'));
+    this.fileService.getFiles().subscribe(
+      (files) => {
+        this.fileService.fileItems$.next(files);
+      },
+      (error) => {
+        if (error.status === 403) {
+          this.viewForbidden = true;
+          this.toastr.error(
+            this.translateService.instant('error.error-occured')
+          );
+        }
       }
-    });
+    );
+  }
+
+
+  handle(e: any){
+    let files: FileHandle[] = [];
+    for (let i = 0; i < e.target.files.length; i++) {
+      const file = e.target.files[i];
+      const url = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+      files.push({ file, url });
+    }
+    this.filesDropped(files);
   }
 
   //get total size of all files
@@ -48,11 +66,12 @@ export class HomeComponent implements OnInit {
   }
 
   filesDropped(files: FileHandle[]): void {
+    console.log('Files dropped', files);
     const totalFileSize = this.getTotalSize(files);
-   if(totalFileSize >= 50000000) {
+    if (totalFileSize >= 50000000) {
       this.toastr.error(this.translateService.instant('error.file-too-big'));
       return;
-   }
+    }
     this.files = files;
     this.showProgress = true;
     this.fileService.upload(files).subscribe(

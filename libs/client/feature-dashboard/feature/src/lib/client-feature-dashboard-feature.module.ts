@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminGuard, AuthGuard } from '@cloudy/client/feature-auth/data-access';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminGuard, AuthGuard } from '@cloudy/client/feature-auth/data-access';
+import { ClientSharedModule } from '@cloudy/client/shared';
 import { SharedUiModule } from '@cloudy/shared/ui';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardDataAccessModule } from '@cloudy/client/feature-dashboard/data-access';
-import { ClientSharedModule } from '@cloudy/client/shared';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -27,8 +26,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     ClientSharedModule,
-    TranslateModule,
-    DashboardDataAccessModule,
+    TranslateModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent],

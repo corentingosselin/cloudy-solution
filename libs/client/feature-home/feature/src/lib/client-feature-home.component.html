@@ -1,16 +1,25 @@
 <cloudy-progress-bar
   *ngIf="showProgress"
   [progress]="progressAmount"
-></cloudy-progress-bar>
+></cloudy-progress-bar>·
 <cloudy-logo width="7"></cloudy-logo>
 
+<label for="input-dropper">
 <div id="dropper" cloudyDropper (files)="filesDropped($event)">
-  <!-- <input type="file" #FileDropRef multiple> !-->
   <div id="dropper-desc">
-    <fa-icon id="upload-icon" [icon]="faUpload"></fa-icon>
+
+    <fa-icon id="upload-icon" [icon]="faUpload">
+    </fa-icon>
     <span translate>commons.dropfiles</span>
   </div>
 </div>
+</label>
+<input
+id="input-dropper"
+type="file"
+multiple
+(change)="handle($event)"
+/>
 
 <div id="my-files" class="flex-row">
   <fa-icon id="home-icon" [icon]="faHome"></fa-icon>
@@ -19,10 +28,9 @@
 
 <div id="files-container">
   <div id="file-items">
-    
-      <cloudy-files-area [viewForbidden]="viewForbidden" [files$]="fileService.fileItems$"></cloudy-files-area>
-  
-
-
+    <cloudy-files-area
+      [viewForbidden]="viewForbidden"
+      [files$]="fileService.fileItems$"
+    ></cloudy-files-area>
   </div>
 </div>

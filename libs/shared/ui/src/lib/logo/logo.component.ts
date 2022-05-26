@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { faCloud } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'cloudy-logo',
@@ -7,12 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LogoComponent implements OnInit {
 
-  @Input() width = '10';
-  @Input() size =  '7';
+  faCloud = faCloud;
   @Input() title = 'Cloudy'
 
   ngOnInit(): void {
-    this.size = (+this.width - 3).toString();
   }
 
 }

@@ -29,3 +29,18 @@ form {
     align-items: center;
     flex-direction: column;
 }
+
+@media screen and (max-width: 640px) {
+
+    .register-form {
+        flex-direction: column;
+    }
+
+    .fields {
+        margin: 0;
+    }
+
+    #register-title {
+        font-size: 1.5rem;
+    }
+}

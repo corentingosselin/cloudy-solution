@@ -162,3 +162,24 @@ span#live-icon {
     background-color: rgba(rgb(0, 243, 214), 0);
   }
 }
+
+
+@media screen and (max-width: 640px) {
+  #dashboard {
+   display: none;
+  }
+  
+  cloudy-logo {
+    display: none;
+  }
+  
+  #search-user {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .search-user-form {
+    width: 100%;
+    
+  }
+}

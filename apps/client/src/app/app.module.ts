@@ -11,6 +11,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { errorInterceptorProvider, jwtInterceptorProvider } from '@cloudy/client/feature-auth/data-access';
+import { DashboardDataAccessModule } from '@cloudy/client/feature-dashboard/data-access';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { errorInterceptorProvider, jwtInterceptorProvider } from '@cloudy/client
     SharedUiModule,
     AppRoutingModule,
     HttpClientModule,
+    DashboardDataAccessModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

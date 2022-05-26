@@ -1,26 +1,52 @@
 .navbar {
-    width: 6rem;
-    height: 100%;
-    position: fixed;
-    background-color: #012D37;
-    transition: width 600ms ease;
+  width: 6rem;
+  height: 100%;
+  position: fixed;
+  background-color: #012d37;
+  transition: width 600ms ease;
 }
 
 .navbar-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
 }
 
 #separator {
-    margin: 2rem;
-    background-color: gray;
-    height: 1px;
-    width: 70%;
+  margin: 2rem;
+  background-color: gray;
+  height: 1px;
+  width: 70%;
 }
 
 #home {
-    font-size: 2.5em;
+  font-size: 2.5em;
+}
+
+@media screen and (max-width: 640px) {
+  .navbar {
+    height: 4.5rem;
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #separator {
+    display: none;
+  }
+
+  fa-icon {
+    font-size: 2rem;
+    margin: 2rem;
+  }
+
+  #home {
+    font-size: 2rem;
+  }
 }
