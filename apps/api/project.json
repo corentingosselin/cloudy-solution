@@ -39,6 +39,20 @@
         "lintFilePatterns": ["apps/api/**/*.ts"]
       }
     },
+    "serve-with-services": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx serve api"
+          },
+          {
+            "command": "nx serve client --open"
+          }
+        ],
+        "parallel": true
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/api"],
