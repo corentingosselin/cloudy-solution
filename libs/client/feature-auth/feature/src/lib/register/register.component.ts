@@ -85,8 +85,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error: (err) => {
-
-          if(err.status === 500 || err.status === 0 || !err.error.key){
+          if(err.status === 500 || err.status === 0 || !err.error.field){
             this.errorResult = {
               error: {},
               errorTitle: 'error.unknown-error',

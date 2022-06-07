@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(private translate: TranslateService, public authService: AuthentificationService) {
-    translate.setDefaultLang("en-EN");  
+    translate.setDefaultLang("en");  
+    console.log(navigator.language);
     translate.use(navigator.language);
   }
 }
