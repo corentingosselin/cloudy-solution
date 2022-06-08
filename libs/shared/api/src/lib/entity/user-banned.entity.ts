@@ -5,6 +5,7 @@ import {
     Entity,
     JoinColumn,
     OneToOne,
+    PrimaryColumn,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
@@ -19,14 +20,15 @@ import { User } from './user.entity';
     @UpdateDateColumn()
     updated_at!: Date;
   
-    @PrimaryGeneratedColumn()
-    id!: number;
 
     @Column('boolean', {default: false})
     banned!: boolean;
 
     @Column('boolean', {default: true})
     view!: boolean;
+
+    @PrimaryColumn()
+    userId!: number;
   
     @OneToOne(() => User)
     @JoinColumn()

@@ -3,6 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
 import { Observable } from 'rxjs';
 import internal = require('stream');
+import { CopyConditions } from 'minio';
 
 @Injectable()
 export class FileService {
@@ -127,41 +128,36 @@ export class FileService {
     const fileKey = user.userId + '/' + fileTarget;
 
     const fileExtension = fileTarget.split('.').pop();
-    const FileTargetName = fileTarget.split('.').slice(0, -1).join('.');
-    const fileDisplayName = FileTargetName + '_copy.' + fileExtension;
+    const fileTargetName = fileTarget.split('.').slice(0, -1).join('.');
+    const fileDisplayName = fileTargetName + '_copy.' + fileExtension;
     const fileName = user.userId + '/' + fileDisplayName;
-    let size = 0;
+    const fileData = await this.client.statObject(fileBucket,fileKey);
+    const size = fileData.size;
 
-    const streamResult = await new Promise<internal.Readable>(
-      (resolve, reject) => {
-        this.client.getObject(fileBucket, fileKey, (err, data) => {
-          data.on('data', function (chunk) {
-            size += chunk.length;
-          });
 
-          data.on('error', reject);
 
-          data.on('end', async function () {
-            resolve(data);
-          });
-        });
-      }
-    );
 
-    const result = await this.client.putObject(
-      fileBucket,
-      fileName,
-      streamResult
-    );
 
-    const item = {
-      name: fileDisplayName,
-      size: size,
-      lastModified: new Date(),
-      etag: result.etag,
-      mimetype: fileTarget.split('.').pop(),
-    };
+    const conds = new CopyConditions()
+    const result = new Promise((resolve, reject) => {
+      this.client.copyObject(fileBucket,   fileName,fileBucket + '/' + fileKey, conds, function(e, data) {
+        if (e) {
+          reject(e);
+        }
 
-    return item;
+        const item = {
+          name: fileDisplayName,
+          size: size,
+          lastModified: new Date(),
+          etag: data.etag,
+          mimetype: fileTarget.split('.').pop(),
+        };
+    
+        resolve(item);
+      })
+    })
+    return result;
+   
+
   }
 }

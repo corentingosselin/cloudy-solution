@@ -13,7 +13,7 @@ import { MonitoringService } from './monitoring.service';
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: 'http://localhost:4200',
   },
 })
 export class MonitoringGateway
@@ -39,10 +39,8 @@ export class MonitoringGateway
   }
 
   afterInit(server: Server) {
-    this.logger.log('Init');
     this.metrics$.subscribe(metric => {
       this.sendMessage(metric);
-      this.logger.log('metrics updated');
     });
   }
 

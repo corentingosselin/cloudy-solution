@@ -134,25 +134,15 @@ export class UserService {
     return userBanned.view;
   }
 
-  //check if user banlist exit or create
-  async getUserBannedOrCreate(user: User): Promise<UserBanned> {
-    let bannedUser = await this.userBannedRepository.findOne({
-      where: { user: { id: user.id } },
-    });
-    if (!bannedUser) {
-      bannedUser = UserBanned.create({ user });
-      bannedUser.save();
-    }
-    return bannedUser;
-  }
 
   //ban user
   async banUser(user: User) {
-    const userBanned = await this.getUserBannedOrCreate(user);
-    userBanned.banned = true;
-    const result = userBanned.save();
-    if (result) return true;
-    return false;
+      const userBanned = UserBanned.create({ user });
+      userBanned.banned = true;
+      const result = userBanned.save();
+      if (result) return true;
+      return false;
+
   }
 
   //unban user
@@ -166,7 +156,7 @@ export class UserService {
 
   //disable user view
   async disableView(user: User) {
-    const userBanned = await this.getUserBannedOrCreate(user);
+    const userBanned = UserBanned.create({ user });
     userBanned.view = false;
     return userBanned.save();
   }
