@@ -6,6 +6,9 @@ This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
+
+<img src="https://i.imgur.com/W1sNY4d.png">
+
 🔎 **Smart, Fast and Extensible Build System**
 
 ## Quick Start & Documentation
