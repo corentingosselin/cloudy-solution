@@ -9,6 +9,8 @@ This project was generated using [Nx](https://nx.dev).
 
 <img src="https://i.imgur.com/W1sNY4d.png">
 
+<img src="https://i.imgur.com/qbO8H6O.png">
+
 🔎 **Smart, Fast and Extensible Build System**
 
 ## Quick Start & Documentation
